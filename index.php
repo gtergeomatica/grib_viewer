@@ -1,5 +1,16 @@
 <?php 
 
+require('./data.php');
+
+
+$origin = strtotime($data);
+//echo $origin."<br>";
+$target=time();
+//$target = strtotime(date("Y-m-d H:i:s"));
+//echo $target."<br>";
+$hour = round(abs($target - $origin)/(60*60),0);
+//echo $hour;
+//exit;
 
 ?>
 <!DOCTYPE html>
@@ -38,7 +49,7 @@
 
     <script src="./vendor/Leaflet.CanvasLayer.Field/dist/leaflet.canvaslayer.field.js"></script>
     <script src="./vendor/leaflet-slider/dist/leaflet-slider.js"></script>
-	<script src="./vendor/Leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+	<script src="./vendor/Leaflet.markercluster-1.4.1/dist/leaflet.markercluster.js"></script>
 	<script src="./vendor/leaflet-list-markers/src/leaflet-list-markers.js"></script>
 
 
@@ -93,8 +104,8 @@
             console.log(value);
             
             
-            d3.text('./data/WRF_NEP_2020110300_'+value+'_ws_u.asc', function (u) {
-                d3.text('./data/WRF_NEP_2020110300_'+value+'_ws_v.asc', function (v) {
+            d3.text('./data/ws_u_'+value+'.asc', function (u) {
+                d3.text('./data/ws_v_'+value+'.asc', function (v) {
                     if (value>1 || check>0){
                         //alert('Sono entrato qua. Check='+check+' e value='+value+'');
 						//alert('Sono qua');
@@ -142,13 +153,13 @@
 
         }, {
 		//slider vento
-        max: 4,
-        min:1,
-        value: 1,
+        max: 47,
+        min:0,
+        value: <?php echo $hour;?>,
         step:1,
         size: '250px',
 		logo:'W.D.',
-		title: 'Wind direction',
+		title: 'Wind direction from <?php echo $start_date;?> 00:00 to <?php echo $end_date;?> 23:59',
         orientation:'horizontal',
         collapsed: true,
         position: 'bottomleft',

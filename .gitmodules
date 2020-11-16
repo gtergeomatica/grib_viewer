@@ -7,9 +7,6 @@
 [submodule "vendor/leaflet-list-markers"]
 	path = vendor/leaflet-list-markers
 	url = https://github.com/stefanocudini/leaflet-list-markers.git
-[submodule "vendor/Leaflet.markercluster"]
-	path = vendor/Leaflet.markercluster
-	url = https://github.com/Leaflet/Leaflet.markercluster.git
 [submodule "vendor/Leaflet"]
 	path = vendor/Leaflet
 	url = https://github.com/Leaflet/Leaflet.git
