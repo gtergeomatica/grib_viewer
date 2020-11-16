@@ -1,0 +1,18 @@
+[submodule "vendor/leaflet_slider"]
+	path = vendor/leaflet_slider
+	url = https://github.com/Eclipse1979/leaflet-slider.git
+[submodule "vendor/Leaflet.CanvasLayer.Field"]
+	path = vendor/Leaflet.CanvasLayer.Field
+	url = https://github.com/adlzanchetta/Leaflet.CanvasLayer.Field.git
+[submodule "vendor/leaflet-list-markers"]
+	path = vendor/leaflet-list-markers
+	url = https://github.com/stefanocudini/leaflet-list-markers.git
+[submodule "vendor/Leaflet.markercluster"]
+	path = vendor/Leaflet.markercluster
+	url = https://github.com/Leaflet/Leaflet.markercluster.git
+[submodule "vendor/Leaflet"]
+	path = vendor/Leaflet
+	url = https://github.com/Leaflet/Leaflet.git
+[submodule "vendor/leaflet-slider"]
+	path = vendor/leaflet-slider
+	url = https://github.com/Eclipse1979/leaflet-slider.git
