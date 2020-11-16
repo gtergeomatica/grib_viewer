@@ -1,6 +1,9 @@
 conn.php
 *.php~
 
+data.php
+
+
 log/*
 !log/.gitkeep
 
