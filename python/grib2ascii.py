@@ -27,6 +27,7 @@ try:
     path_grib=input1
 except: 
     logging.error('Please, define the path to grib file. If the file is contained in this directory use ./')
+    exit()
 
 
 # funzione non usata
