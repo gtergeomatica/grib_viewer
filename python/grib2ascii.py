@@ -62,7 +62,7 @@ def main():
         exit
 
     f = open("../data.php", "w")
-    f.write("<?php \n$data='{}'; \n$start_date={}; \n$end_date={}  ?>".format(giorno, today, fine_giorno))
+    f.write("<?php \n$data='{}'; \n$start_date='{}'; \n$end_date='{}'; \n?>".format(giorno, today, fine_giorno))
     f.close()
     exit;
     # prima di tutto converto il grib in GeoTiff
@@ -96,7 +96,7 @@ def main():
             logging.error(e)
         #*********************************************************************************   
         # # u-component of velocity at 1000 hPA 
-        ws_v='gdal_translate -b {0} -of AAigrid {1}.tiff ../data/{2}_{3}.asc'.format((196+k*292),file_name,'ws_v',(k+1))
+        ws_v='gdal_translate -b {0} -of AAigrid {1}.tiff ../data/{2}_{3}.asc'.format((197+k*292),file_name,'ws_v',(k+1))
         try:
             ret = os.system(ws_v)
             logging.debug(ret)

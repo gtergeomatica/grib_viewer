@@ -106,7 +106,7 @@ $hour = round(abs($target - $origin)/(60*60),0);
             
             d3.text('./data/ws_u_'+value+'.asc', function (u) {
                 d3.text('./data/ws_v_'+value+'.asc', function (v) {
-                    if (value>1 || check>0){
+                    if (check>0){
                         //alert('Sono entrato qua. Check='+check+' e value='+value+'');
 						//alert('Sono qua');
 						map.removeLayer(vento);
@@ -141,7 +141,7 @@ $hour = round(abs($target - $origin)/(60*60),0);
                             let vector = e.value;
                             let vv = vector.magnitude().toFixed(2);
                             let d = vector.directionTo().toFixed(0);
-                            let html = ('<span class="popupText">${vv} m/s to ${d}&deg</span>');
+                            let html = (`<span class="popupText">${vv} m/s to ${d}&deg</span>`);
                             let popup = L.popup()
                                 .setLatLng(e.latlng)
                                 .setContent(html)
@@ -154,7 +154,7 @@ $hour = round(abs($target - $origin)/(60*60),0);
         }, {
 		//slider vento
         max: 47,
-        min:0,
+        min:1,
         value: <?php echo $hour;?>,
         step:1,
         size: '250px',
