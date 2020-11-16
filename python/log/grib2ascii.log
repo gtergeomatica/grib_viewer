@@ -1,5 +1,2 @@
-2020-11-16 21:25:28,657	INFO	Current date and time : 20201116
-2020-11-16 21:25:28,657	INFO	WRF_NEP_2020111600.grb2 exist
-2020-11-16 21:25:28,657	INFO	gdalwarp -t_srs EPSG:4326 
-        -of Gtiff -dstnodata -9999 
-        WRF_NEP_2020111600.grb2 WRF_NEP_2020111600.tiff
+2020-11-16 23:31:52,402	INFO	Current date and time : 20201116
+2020-11-16 23:31:52,402	INFO	./WRF_NEP_2020111600.grb2 exist

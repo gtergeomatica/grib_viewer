@@ -15,14 +15,18 @@ import datetime
 import logging 
 logging.basicConfig(
     format='%(asctime)s\t%(levelname)s\t%(message)s',
-    #filename='log/grib2ascii.log',
-    #filemode='w',
+    filename='log/grib2ascii.log',
+    filemode='w',
     level=logging.DEBUG)
 
 
 # assegno l'input dello script e.g wd (wind direction)
-#script, input1 = argv
+script, input1 = argv
 
+try:
+    path_grib=input1
+except: 
+    logging.error('Please, define the path to grib file. If the file is contained in this directory use ./')
 
 
 # funzione non usata
@@ -45,9 +49,9 @@ def main():
     now_file  =now.strftime("%Y%m%d")
     giorno = now.strftime("%Y/%m/%d")
     today = datetime.datetime.now().date()
-    print(today)
+    logging.debug(today)
     fine_giorno = today + datetime.timedelta(hours=47)
-    print(fine_giorno)
+    logging.debug(fine_giorno)
     logging.info("Current date and time : {}".format(now_file))
     file_prefix='WRF_NEP'
     file_name='{}_{}00'.format(file_prefix, now_file)
@@ -55,11 +59,13 @@ def main():
 
 
     #verifico che il file esista
-    if os.path.isfile('{}.grb2'.format(file_name)):
-        logging.info("{}.grb2 exist".format(file_name))
+    if os.path.isfile('{}{}.grb2'.format(path_grib,file_name)):
+        logging.info("{}{}.grb2 exist".format(path_grib,file_name))
     else:
-        logging.error("{}.grb2 not exist".format(file_name))
-        exit
+        logging.error("{}{}.grb2 not exist".format(path_grib,file_name))
+    
+    
+    #exit()
 
     f = open("../data.php", "w")
     f.write("<?php \n$data='{}'; \n$start_date='{}'; \n$end_date='{}'; \n?>".format(giorno, today, fine_giorno))
@@ -107,7 +113,7 @@ def main():
         logging.info('Hour {} converted'.format(k))
 
 
-    remove_geotiff= 'rm {}.tiff'.format(file_name)
+    remove_geotiff= 'rm {}.tiff*'.format(file_name)
     try:
         ret = os.system(remove_geotiff)
         logging.debug(ret)
