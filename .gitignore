@@ -4,6 +4,8 @@ conn.php
 data.php
 
 python/*tiff
+python/nascosto.txt
+
 
 python/log/*
 !python/log/.gitkeep
