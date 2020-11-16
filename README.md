@@ -10,7 +10,7 @@ This is a demo based on https://github.com/adlzanchetta/Leaflet.CanvasLayer.Fiel
 git clone repository_address
 
 
-## 2. DB PostGIS connection
+# 2. DB PostGIS connection
 
 create a conn.php file with the connection to DB
 
@@ -32,7 +32,7 @@ It is used for instruments view:
 
 TO TRANSLATE:
 
-## 3. Dependencies
+# 3. Dependencies
 Ci sono alcune librerie che sono state aggiunte come dipendenze. Si tratta di altri repository github che sono direttamente caricati dentro il repo:
 
 Un esempio è la libreria leaflet alla base del webGIS:
@@ -104,3 +104,12 @@ Forse da aggiugere (potrebbero servire in futuro?)
 * https://github.com/gtergeomatica/omirl_data_ingestion.git
 * https://github.com/snapappointments/bootstrap-select.git
 * https://github.com/wenzhixin/bootstrap-table.git
+
+
+# 4. Add line to crontab
+
+```
+###################################################################################
+# Risqueau 8every day at 12:00 PM)
+05 12 * * * gter /usr/bin/python3 /home/gter/REPOSITORY/grib_viewer/python/grib2ascii.py /home/risqueau/dati/ 2>&1
+```
