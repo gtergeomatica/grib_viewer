@@ -3,9 +3,10 @@ conn.php
 
 data.php
 
+python/*tiff
 
-log/*
-!log/.gitkeep
+python/log/*
+!python/log/.gitkeep
 
 data/*
 !data/.gitkeep
