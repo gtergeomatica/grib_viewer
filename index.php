@@ -15,46 +15,49 @@ $hour = round(abs($target - $origin)/(60*60),0);
 ?>
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
+    <meta charset="utf-8">
+    <!--meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1"-->
     <title>Risqueau WebGIS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <!-- jquery -->
-    <!--script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script-->
-    
-    <!-- CDN -->
-    <!--link rel="stylesheet" href="//unpkg.com/leaflet@1.4.0/dist/leaflet.css" /-->
-	<link rel="stylesheet" href="./vendor/Leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="examples.css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
-    <!-- Plugin -->
-    <link rel="stylesheet" href="./vendor/leaflet-slider/dist/leaflet-slider.css"/>
-	<link href="./vendor/leaflet-list-markers/src/leaflet-list-markers.css" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-    <h1 class="title mapTitle">Demo Risqueau WebGIS</h1>
-    <div id="map"></div>
-
-    <!-- CDN -->
-    <script src="//d3js.org/d3.v4.min.js"></script>
-    <!--script src="//npmcdn.com/leaflet@1.4.0/dist/leaflet.js"></script-->
-	<script src="./vendor/Leaflet/dist/leaflet.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
-
-    <!-- Plugin -->
-
-    <script src="./vendor/Leaflet.CanvasLayer.Field/dist/leaflet.canvaslayer.field.js"></script>
-    <script src="./vendor/leaflet-slider/dist/leaflet-slider.js"></script>
-	<script src="./vendor/Leaflet.markercluster-1.4.1/dist/leaflet.markercluster.js"></script>
-	<script src="./vendor/leaflet-list-markers/src/leaflet-list-markers.js"></script>
+    <!--meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /-->
+	<?php
+	//CSS
+	require('./require/require_css.php');
+	?>
+  </head>
+  <body class="text-center">
+  <!--div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column"-->
+  <div class="cover-container">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h1 class="masthead-brand">Demo Risqueau WebGIS</h1>
+      <!--nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link active" href="#">Home</a>
+        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="#">Contact</a>
+      </nav-->
+    </div>
+  </header>
+  <div id="map"></div>
 
 
 
-    <script>
+	<?php
+	//javascript
+	require('./require/require_js.php');
+	?>  
+  
+
+  <!--main role="main" class="inner cover">
+    <h1 class="cover-heading">Cover your page.</h1>
+    <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+    <p class="lead">
+      <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
+    </p>
+  </main-->
+  <script>
 		//aa
 		//let map = L.map('map');
 		let map = L.map('map').setView([43.5, 6.912661], 10);
@@ -96,83 +99,23 @@ $hour = round(abs($target - $origin)/(60*60),0);
 
 
 
+</script>
 
+<?php
+// qua sarà da metter una scelta in funzione di quello che vuole vedere l'utente
+// forse nella pagina in basso
+require('wd.php');
+?>
 
-
-
-        slider = L.control.slider(function(value) {
-            console.log(value);
-            
-            
-            d3.text('./data/ws_u_'+value+'.asc', function (u) {
-                d3.text('./data/ws_v_'+value+'.asc', function (v) {
-                    if (check>0){
-                        //alert('Sono entrato qua. Check='+check+' e value='+value+'');
-						//alert('Sono qua');
-						map.removeLayer(vento);
-						//map.removeLayer(magnitude);
-						//var vf;
-						//let vf;
-                    } 
-					let vf = L.VectorField.fromASCIIGrids(u, v);
-					/*s = vf.getScalarField('magnitude');
-					magnitude = L.canvasLayer.scalarField(s, {
-                    color: chroma.scale(
-                        ['#1F263A', '#414AA9', '#44758C', '#399B58', 'DCD296', 'F2E899', 'A53E3C', '9C3333'], [.1, .2, .3, .4, .7, .9, 1.5, 2]
-                    ),
-                    opacity: 0.65
-                });
-					map.addLayer(magnitude);*/
-					vento = L.canvasLayer.vectorFieldAnim(vf, {
-					paths: 800,
-					//color: 'white', // html-color | function colorFor(value) [e.g. chromajs.scale]
-					//width: 1.0, // number | function widthFor(value)
-					//fade: 0.96, // 0 to 1
-					//duration: 20, // milliseconds per 'frame'
-					maxAge: 200, // number of maximum frames per path
-					//velocityScale: 1 / 5000
-				});
-					
-					map.addLayer(vento);
-                    //map.fitBounds(vento.getBounds());
-                    check=1;
-                    vento.on('click', function (e) {
-                        if (e.value !== null) {
-                            let vector = e.value;
-                            let vv = vector.magnitude().toFixed(2);
-                            let d = vector.directionTo().toFixed(0);
-                            let html = (`<span class="popupText">${vv} m/s to ${d}&deg</span>`);
-                            let popup = L.popup()
-                                .setLatLng(e.latlng)
-                                .setContent(html)
-                                .openOn(map);
-                        }
-                    }); // {onClick: callback} inside 'options' is also supported when using layer contructor
-                });
-            });
-
-        }, {
-		//slider vento
-        max: 47,
-        min:1,
-        value: <?php echo $hour;?>,
-        step:1,
-        size: '250px',
-		logo:'W.D.',
-		title: 'Wind direction from <?php echo $start_date;?> 00:00 to <?php echo $end_date;?> 23:59',
-        orientation:'horizontal',
-        collapsed: true,
-        position: 'bottomleft',
-        id: 'slider'
-    }).addTo(map);
-	
-	var segn_non_lav = [
+        
+<script>	
+	var pluvio_siac0 = [
 		<?php 
 		require('./pluviometri.php');
 		?>
 		];
 		
-		var icon_no_lav = L.icon({
+		var icon_pluvui_siac = L.icon({
 		  iconUrl: 'icon/segn_no_lavorazione.png',
 		  //iconSize: [32, 37],
 		  iconSize: [19,22],
@@ -180,10 +123,10 @@ $hour = round(abs($target - $origin)/(60*60),0);
 		  popupAnchor: [0, -28]
 		});
 		
-		var layer_v_segnalazioni_0 = L.geoJson(segn_non_lav, {
+		var pluvio_siac = L.geoJson(pluvio_siac0, {
 		    pointToLayer: function (feature, latlng) {
 		        //return L.circleMarker(latlng, stile_non_lavorazione);
-		        return L.marker(latlng, {title: '<font color="#FFA500"> S.'+feature.properties.id + '-'+feature.properties.criticita + ' - '+feature.properties.localizzazione +'</font>',icon: icon_no_lav});
+		        return L.marker(latlng, {title: '<font color="#FFA500"> S.'+feature.properties.id + '-'+feature.properties.criticita + ' - '+feature.properties.localizzazione +'</font>',icon: icon_pluvui_siac});
 		    }
 		    ,
 			onEachFeature: function (feature, layer) {
@@ -197,16 +140,17 @@ $hour = round(abs($target - $origin)/(60*60),0);
 				'"> Grafici </a>' );
 			}
 		});
-		map.addLayer(layer_v_segnalazioni_0);
+		map.addLayer(pluvio_siac);
 		
-
+		// gruppo con le baselayers
 		var baseLayers = {
         		'OpenStreetMap': basemap2, 
         		'Realvista e-geos': realvista,
         		'CartoDB': cartodb
         	};
-        
-        var overlayLayers = {'<img src="icon/segn_no_lavorazione.png" width="20" height="24" alt=""> Pluviometri': layer_v_segnalazioni_0//,
+		
+		// gruppo con gli strumenti e altre eventuali mappe
+        var overlayLayers = {'<img src="icon/segn_no_lavorazione.png" width="20" height="24" alt=""> Pluviometri': pluvio_siac//,
         //,'Vento1': vento1,'vento2': vento2//'<img src="icon/segn_lavorazione.png" width="20" height="24" alt="">  Segnalazioni in lavorazione': markers1,
         //'<img src="icon/segn_chiusa.png" width="20" height="24" alt="">  Segnalazioni chiuse': layer_v_segnalazioni_2,
         //'<img src="icon/sopralluogo.png" width="20" height="24" alt="">  Altri presidi': presidi,
@@ -222,7 +166,7 @@ $hour = round(abs($target - $origin)/(60*60),0);
 
 
 		//inizialize Leaflet List Markers
-		/*var list0 = new L.Control.ListMarkers({layer: layer_v_segnalazioni_0, maxZoom:14, label: 'title', itemIcon: null});
+		/*var list0 = new L.Control.ListMarkers({layer: pluvio_siac, maxZoom:14, label: 'title', itemIcon: null});
 		
 		list0.on('item-mouseover', function(e) {
 			e.layer.setIcon(L.icon({
@@ -242,8 +186,19 @@ $hour = round(abs($target - $origin)/(60*60),0);
 	
 	
     </script>
-</body>
 
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    </div>
+  </footer>
+</div>
+<style>
+#map{
+    height:80%;
+}
+</style>
+</body>
 </html>
 <?php 
 

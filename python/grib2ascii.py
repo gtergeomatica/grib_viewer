@@ -15,7 +15,7 @@ import datetime
 import logging 
 logging.basicConfig(
     format='%(asctime)s\t%(levelname)s\t%(message)s',
-    filename='log/grib2ascii.log',
+    filename=os.path.join(sys.path[0],'log/grib2ascii.log'),
     filemode='w',
     level=logging.DEBUG)
 
