@@ -12,10 +12,17 @@ from sys import argv
 
 import datetime
 
-import logging 
+import logging
+import tempfile
+
+# il file di log lo metto nella cartella temporanea
+tmpfolder=tempfile.gettempdir() # get the current temporary directory
+logfile='{}/grib2ascii.log'.format(tmpfolder)
+
+ 
 logging.basicConfig(
     format='%(asctime)s\t%(levelname)s\t%(message)s',
-    filename=os.path.join(sys.path[0],'log/grib2ascii.log'),
+    filename=logfile,
     filemode='w',
     level=logging.DEBUG)
 
