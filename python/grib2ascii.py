@@ -31,6 +31,7 @@ script, input1 = argv
 
 try:
     path_grib=input1
+    logging.info(path_grib)
 except: 
     logging.error('Please, define the path to grib file. If the file is contained in this directory use ./')
     exit()
@@ -73,15 +74,16 @@ def main():
     
     
     #exit()
-    path = os.getcwd()
-    parent = os.path.join(path, os.pardir) 
+    file= os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data.php'))
+    data_path=os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data'))
+     
     
-    f = open(os.path.join(parent,"../data.php"), "w")
+    f = open(file, "w")
     f.write("<?php \n$data='{}'; \n$start_date='{}'; \n$end_date='{}'; \n?>".format(giorno, today, fine_giorno))
     f.close()
     exit;
     # prima di tutto converto il grib in GeoTiff
-    geotiff='gdalwarp -t_srs EPSG:4326 -of Gtiff -dstnodata -9999 {0}.grb2 {0}.tiff'.format(file_name)
+    geotiff='/usr/bin/gdalwarp -t_srs EPSG:4326 -of Gtiff -dstnodata -9999 {0}{1}.grb2 {0}{1}.tiff'.format(path_grib,file_name)
 
     logging.info(geotiff)
     #exit()
@@ -95,7 +97,7 @@ def main():
     k=0
     while k<48:
         # wind speed - banda 12 + k * 292
-        ws='gdal_translate -b {0} -of AAigrid {1}.tiff ../data/{2}_{3}.asc'.format((12+k*292),file_name,'ws',(k+1))
+        ws='/usr/bin/gdal_translate -b {0} -of AAigrid {4}{1}.tiff {5}/{2}_{3}.asc'.format((12+k*292),file_name,'ws',(k+1),path_grib,data_path)
         try:
             ret = os.system(ws)
             logging.debug(ret)
@@ -103,7 +105,7 @@ def main():
             logging.error(e)
         #*********************************************************************************
         # # u-component of velocity at 1000 hPA 
-        ws_u='gdal_translate -b {0} -of AAigrid {1}.tiff ../data/{2}_{3}.asc'.format((196+k*292),file_name,'ws_u',(k+1))
+        ws_u='/usr/bin/gdal_translate -b {0} -of AAigrid {4}{1}.tiff {5}/{2}_{3}.asc'.format((196+k*292),file_name,'ws_u',(k+1),path_grib,data_path)
         try:
             ret = os.system(ws_u)
             logging.debug(ret)
@@ -111,18 +113,19 @@ def main():
             logging.error(e)
         #*********************************************************************************   
         # # u-component of velocity at 1000 hPA 
-        ws_v='gdal_translate -b {0} -of AAigrid {1}.tiff ../data/{2}_{3}.asc'.format((197+k*292),file_name,'ws_v',(k+1))
+        ws_v='/usr/bin/gdal_translate -b {0} -of AAigrid {4}{1}.tiff {5}/{2}_{3}.asc'.format((197+k*292),file_name,'ws_v',(k+1),path_grib,data_path)
         try:
             ret = os.system(ws_v)
             logging.debug(ret)
+            logging.info('Hour {} converted'.format(k+1))
         except Exception as e:
             logging.error(e)   
         # vado avanti con il contatore
         k+=1
-        logging.info('Hour {} converted'.format(k))
+        
 
 
-    remove_geotiff= 'rm {}.tiff*'.format(file_name)
+    remove_geotiff= 'rm {0}{1}.tiff*'.format(path_grib,file_name)
     try:
         ret = os.system(remove_geotiff)
         logging.debug(ret)
