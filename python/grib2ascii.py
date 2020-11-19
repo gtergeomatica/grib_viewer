@@ -15,7 +15,7 @@ import datetime
 import logging
 import tempfile
 
-# il file di log lo metto nella cartella temporanea
+#il file di log lo salviamo nella cartella temporanea di sistema
 tmpfolder=tempfile.gettempdir() # get the current temporary directory
 logfile='{}/grib2ascii.log'.format(tmpfolder)
 
@@ -25,7 +25,6 @@ logging.basicConfig(
     filename=logfile,
     filemode='w',
     level=logging.DEBUG)
-
 
 # assegno l'input dello script e.g wd (wind direction)
 script, input1 = argv
@@ -74,8 +73,10 @@ def main():
     
     
     #exit()
-
-    f = open("../data.php", "w")
+    path = os.getcwd()
+    parent = os.path.join(path, os.pardir) 
+    
+    f = open(os.path.join(parent,"../data.php"), "w")
     f.write("<?php \n$data='{}'; \n$start_date='{}'; \n$end_date='{}'; \n?>".format(giorno, today, fine_giorno))
     f.close()
     exit;
