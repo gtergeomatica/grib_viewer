@@ -6,6 +6,8 @@ python/credenziali.py
 python/*.pyc
 python/*tiff
 python/nascosto.txt
+python/__pycache__
+
 
 
 python/log/*
