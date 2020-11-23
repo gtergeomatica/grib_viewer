@@ -14,6 +14,8 @@ import datetime
 
 import logging
 import tempfile
+import smtplib, ssl
+from credenziali import *
 
 #il file di log lo salviamo nella cartella temporanea di sistema
 tmpfolder=tempfile.gettempdir() # get the current temporary directory
@@ -71,6 +73,44 @@ def main():
         logging.info("{}{}.grb2 exist".format(path_grib,file_name))
     else:
         logging.error("{}{}.grb2 not exist".format(path_grib,file_name))
+        try:
+            '''server = smtplib.SMTP(smtp_server,smtp_port)
+            server.ehlo() # Can be omitted
+            server.starttls(context=context) # Secure the connection
+            server.ehlo() # Can be omitted
+            server.login(sender_email, smtp_password)
+            '''
+            #port = 465  # For SSL
+            #smtp_server = "smtp.gmail.com"
+            #sender_email = "my@gmail.com"  # Enter your address
+            #receiver_email = "your@gmail.com"  # Enter receiver address
+            #password = input("Type your password and press enter: ")
+            # TODO: Send email here
+            message = """\
+Subject: Risqueau ALERT 
+
+{}.grb2 not exist on the GisHosting server. 
+            
+This message is automaticaly sent from Python.""".format(file_name)
+            
+            context = ssl.create_default_context()
+            with smtplib.SMTP(smtp_server, smtp_port) as server:
+                server.ehlo()  # Can be omitted
+                server.starttls(context=context)
+                server.ehlo()  # Can be omitted
+                server.login(sender_email, smtp_password)
+                server.sendmail(sender_email, receiver_email, message)
+            
+            
+            # Create a secure SSL context
+            '''context = ssl.create_default_context()
+            with smtplib.SMTP_SSL(smtp_server, smtp_port, context=context) as server:
+                server.login(sender_email, smtp_password)
+                server.sendmail(sender_email, receiver_email, message)  '''    
+        except Exception as ee:
+            # Print any error messages to stdout
+            logging.error(ee)
+        exit()
     
     
     #exit()
@@ -93,6 +133,7 @@ def main():
         logging.debug(ret)
     except Exception as e:
         logging.error(e)
+        
 
     k=0
     while k<48:
