@@ -107,7 +107,59 @@ $hour = round(abs($target - $origin)/(60*60),0);
 require('wd.php');
 ?>
 
-        
+<?php
+$query0="SELECT name, shortcode FROM arpal.pluvio;";
+
+$result0 = pg_query($conn, $query0);
+while($r0 = pg_fetch_assoc($result0)) {
+?>
+	<div id="grafico_p_a<?php echo $r0['shortcode']; ?>" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Grafico <?php echo $r0['name']; ?></h4>
+		  </div>
+		  <div class="modal-body">
+				<?php 
+				$pluviometro=$r0["shortcode"];
+				$pluvio_name=$r0["name"];
+				//echo $pluviometro;
+				require('./grafico_pluvio.php'); 
+				?>
+				<div id="container_<?php echo $pluviometro;?>" style="width: 100%; height: 400px"></div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	
+	
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php }       
+?>
+	  
 <script>	
 	var pluvio_siac0 = [
 		<?php 
@@ -135,12 +187,13 @@ require('wd.php');
 				feature.properties.name+'</h4>'+
 				'<h4><b>Descrizione</b>: '+
 				feature.properties.descr+'</h4>'+
-				'<a class="btn btn-primary active" role="button" href="./grafici_pluvio.php?id='+
-				feature.properties.id +
-				'"> Grafici </a>' );
+				'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#grafico_p_a'+feature.properties.id+'">\<i class="fas fa-chart-line" title="Visualizza grafico pluviometro"></i>Grafico </button>' );
 			}
 		});
 		map.addLayer(pluvio_siac);
+		
+		
+		
 		
 		// gruppo con le baselayers
 		var baseLayers = {
@@ -189,6 +242,11 @@ require('wd.php');
 
   <footer class="mastfoot mt-auto">
     <div class="inner">
+	<br>
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Popup con i loghi e i credits
+</button>
+	<br>
       <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
     </div>
   </footer>

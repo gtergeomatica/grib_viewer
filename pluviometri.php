@@ -1,5 +1,5 @@
 <?php 
-require('conn.php');
+
 // pluviometri SIAC e ACRONET + ARPA Liguria Provincia di Imperia
 $query_g="SELECT s.id::text, ST_AsGeoJson(geom) as geo, name, concat(d.descrizione, ' - ', descr) as descr, note 
 FROM monitoraggio.stazioni_risqueau s

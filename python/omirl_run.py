@@ -51,14 +51,16 @@ def main():
     for row in lista_idrometri:
         logging.info('Leggo pluviometro {}'.format(row[0]))
         try:
-            os.system('/usr/bin/python3 {}/xml2json.py Pluvio {}'.format(path_omirl, row[0]))
+            # precipitazione giornaliera
+            # os.system('/usr/bin/python3 {}/xml2json.py Pluvio {}'.format(path_omirl, row[0]))
+            os.system('/usr/bin/python3 {}/xml2json.py PluvioNative {}'.format(path_omirl, row[0]))
             logging.info('Download dati per Idrometro {} avvenuto correttamente'.format(row[0]))
         except Exception as e:
             logging.error('TIMEOUT? PROBLEM', e) 
         try: 
-            path_file = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/{}_Pluvio.json'.format(row[0])))
+            path_file = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/{}_PluvioNative.json'.format(row[0])))
             logging.debug(path_file)
-            os.system('mv {}/{}_Pluvio.json {}'.format(path_omirl, row[0],path_file))
+            os.system('mv {}/{}_PluvioNative.json {}'.format(path_omirl, row[0],path_file))
         except Exception as ee:
             logging.error('move problem', ee)     
             
