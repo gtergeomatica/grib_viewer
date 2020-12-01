@@ -41,7 +41,7 @@ $hour = round(abs($target - $origin)/(60*60),0);
     </div>
   </header>
   <div id="map"></div>
-
+  <div id="test"></div>
 
 
 	<?php
@@ -239,6 +239,12 @@ while($r0 = pg_fetch_assoc($result0)) {
 	
 	
     </script>
+    <script>
+        // move the control slider outside the map
+        $('#test').append(slider.onAdd(map))
+        $('.leaflet-control-slider.leaflet-control-slider-horizontal.leaflet-control-slider-expanded.leaflet-control').remove()
+        //$("p.leaflet-control-slider-value").html($("a.leaflet-control-slider-toggle").attr("title"))
+    </script>
 
   <footer class="mastfoot mt-auto">
     <div class="inner">
@@ -254,6 +260,25 @@ while($r0 = pg_fetch_assoc($result0)) {
 <style>
 #map{
     height:80%;
+}
+#test{
+    position: absolute;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
+    background: none repeat scroll 0% 0% #FFF;
+    border-radius: 5px;
+    z-index: 800;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.1em;
+    font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+.leaflet-control-slider-value{
+    width: auto !important;
 }
 </style>
 </body>

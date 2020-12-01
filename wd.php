@@ -46,7 +46,7 @@ slider = L.control.slider(function(value) {
 					let vector = e.value;
 					let vv = vector.magnitude().toFixed(2);
 					let d = vector.directionTo().toFixed(0);
-					let html = ('<span class="popupText">${vv} m/s to ${d}&deg</span>');
+					let html = (`<span class="popupText">${vv} m/s to ${d}&deg</span>`);
 					let popup = L.popup()
 						.setLatLng(e.latlng)
 						.setContent(html)
@@ -67,6 +67,15 @@ slider = L.control.slider(function(value) {
 	orientation:'horizontal',
 	collapsed: false,
 	position: 'bottomleft',
+    increment: true,
+    getValue: function(value) {
+        //var data = "<?php echo $start_date;?>";
+        // return 'Wind direction from <?php echo $start_date;?> to <?php echo $end_date;?>, hour:' + value;
+        var mydata = new Date("November 29, 2020");
+        //console.log(mydata)
+        var aux = mydata.setHours(value);
+        return 'Wind direction at ' + mydata.setHours(value);
+    },
 	id: 'slider'
 }).addTo(map);
 
