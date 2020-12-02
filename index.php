@@ -151,7 +151,7 @@ while($r0 = pg_fetch_assoc($result0)) {
         </button>
       </div>
       <div class="modal-body" style="text-align: justify!important;">
-        <span style="color:#394283; text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0);"><strong>WebGIS realizzato da <a class="footlink" href="https://www.gter.it/">Gter srl</a> nell'ambito del progetto Interreg Alcotra Risq'eau.<br>Il WebGIS è interamente sviluppato con librerie Open Source e il codice è disponibile su <a class="footlink" href="https://github.com/gtergeomatica/grib_viewer">GitHub</a> con licenza <a class="footlink" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>.</span>
+        <span style="color:#394283; text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0);"><strong>The WebGIS has been created by <a class="footlink" href="https://www.gter.it/">Gter srl</a> as part of the Interreg Alcotra Project Risq'eau.<br>The WebGIS is completely based on Open Source libraries and its code is available on <a class="footlink" href="https://github.com/gtergeomatica/grib_viewer">GitHub</a> with license <a class="footlink" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>.</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary blu" data-dismiss="modal">Close</button>
@@ -171,7 +171,7 @@ while($r0 = pg_fetch_assoc($result0)) {
 		];
 		
 		var icon_pluvui_siac = L.icon({
-		  iconUrl: 'icon/segn_no_lavorazione.png',
+		  iconUrl: 'icon/pluvio.png',
 		  //iconSize: [32, 37],
 		  iconSize: [19,22],
 		  iconAnchor: [16, 37],
