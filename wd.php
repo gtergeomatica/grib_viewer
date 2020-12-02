@@ -69,12 +69,14 @@ slider = L.control.slider(function(value) {
 	position: 'bottomleft',
     increment: true,
     getValue: function(value) {
-        //var data = "<?php echo $start_date;?>";
+        var phpdata = "<?php echo $start_date;?>";
         // return 'Wind direction from <?php echo $start_date;?> to <?php echo $end_date;?>, hour:' + value;
-        var mydata = new Date("November 29, 2020");
+        var mydata = new Date(phpdata);
         //console.log(mydata)
-        var aux = mydata.setHours(value);
-        return 'Wind direction at ' + mydata.setHours(value);
+        var myhour = mydata.setHours(value);
+        var newdate = new Date(myhour);
+        
+        return 'Wind direction at ' + newdate.toLocaleString([], {hour: '2-digit', minute:'2-digit'});
     },
 	id: 'slider'
 }).addTo(map);

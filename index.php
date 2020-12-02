@@ -20,7 +20,7 @@ $hour = round(abs($target - $origin)/(60*60),0);
     <!--meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.1.1"-->
-    <title>Risqueau WebGIS</title>
+    <title>Risqeau WebGIS</title>
     <!--meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /-->
 	<?php
 	//CSS
@@ -29,10 +29,11 @@ $hour = round(abs($target - $origin)/(60*60),0);
   </head>
   <body class="text-center">
   <!--div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column"-->
-  <div class="cover-container">
+  <div class="cover-container" style="background-color: lavender">
   <header class="masthead mb-auto">
-    <div class="inner">
-      <h1 class="masthead-brand">Demo Risqueau WebGIS</h1>
+    <div class="inner" style="margin-top: 0px;">
+      <h1 class="masthead-brand" style="float: unset;"><span style="color: #e6335b;">Demo Risq'eau</span> <span style="color: #394283;">WebGIS</span>
+      <img class="masthead" src="./icon/logo_risqueau.png" style="max-height: 100px; margin-bottom: 0px !important;"></h1>
       <!--nav class="nav nav-masthead justify-content-center">
         <a class="nav-link active" href="#">Home</a>
         <a class="nav-link" href="#">Features</a>
@@ -41,7 +42,8 @@ $hour = round(abs($target - $origin)/(60*60),0);
     </div>
   </header>
   <div id="map"></div>
-  <div id="test"></div>
+  <div id="bar"></div>
+  
 
 
 	<?php
@@ -142,17 +144,18 @@ while($r0 = pg_fetch_assoc($result0)) {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h4 class="modal-title" id="exampleModalLabel"><span style="color: #e6335b;">Demo Risq'eau</span> <span style="color: #394283;">WebGIS</span>
+        <img class="masthead" src="./icon/logo_risqueau.png" style="max-height: 100px; margin-bottom: 0px !important;"></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        ...
+      <div class="modal-body" style="text-align: justify!important;">
+        <span style="color:#394283; text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0);"><strong>WebGIS realizzato da <a class="footlink" href="https://www.gter.it/">Gter srl</a> nell'ambito del progetto Interreg Alcotra Risq'eau.<br>Il WebGIS è interamente sviluppato con librerie Open Source e il codice è disponibile su <a class="footlink" href="https://github.com/gtergeomatica/grib_viewer">GitHub</a> con licenza <a class="footlink" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>.</span>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary blu" data-dismiss="modal">Close</button>
+        <!--button type="button" class="btn btn-primary">Save changes</button-->
       </div>
     </div>
   </div>
@@ -241,33 +244,40 @@ while($r0 = pg_fetch_assoc($result0)) {
     </script>
     <script>
         // move the control slider outside the map
-        $('#test').append(slider.onAdd(map))
+        $('#bar').append(slider.onAdd(map))
         $('.leaflet-control-slider.leaflet-control-slider-horizontal.leaflet-control-slider-expanded.leaflet-control').remove()
         //$("p.leaflet-control-slider-value").html($("a.leaflet-control-slider-toggle").attr("title"))
     </script>
-
-  <footer class="mastfoot mt-auto">
+  <footer class="mastfoot mt-auto" style="background-color: lavender">
     <div class="inner">
-	<br>
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Popup con i loghi e i credits
+    <!--div id="test"></div-->
+	<br><br>
+    <hr>
+	<button type="button" class="btn btn-primary blu" data-toggle="modal" data-target="#exampleModal" style="margin-top:20px;"><i class="fas fa-info-circle"></i>
+  Credits
 </button>
 	<br>
-      <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p style="color:#394283;"><b><a class="footlink" style="color:#394283;" href="https://www.gter.it/">Gter</a> Copyleft, 2020. Starting from the <i>Cover</i> template for <a class="footlink" style="color:#394283;" href="https://getbootstrap.com/">Bootstrap</a>, by <a class="footlink" style="color:#394283;" href="https://twitter.com/mdo">@mdo</a>.</b></p>
     </div>
   </footer>
+      <!--script>
+        // move the control slider outside the map
+        $('#test').append(slider.onAdd(map))
+        $('.leaflet-control-slider.leaflet-control-slider-horizontal.leaflet-control-slider-expanded.leaflet-control').remove()
+        //$("p.leaflet-control-slider-value").html($("a.leaflet-control-slider-toggle").attr("title"))
+    </script-->
 </div>
 <style>
 #map{
     height:80%;
 }
-#test{
+#bar{
     position: absolute;
     margin-left: 10px;
     margin-bottom: 10px;
     margin-top: 20px;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
-    background: none repeat scroll 0% 0% #FFF;
+    background: none repeat scroll 0% 0% #394283;
     border-radius: 5px;
     z-index: 800;
     text-align: center;
@@ -279,6 +289,32 @@ while($r0 = pg_fetch_assoc($result0)) {
 }
 .leaflet-control-slider-value{
     width: auto !important;
+    border-right: 0px !important;
+    color: #FFF !important;
+    margin-left: 12px!important;
+}
+.leaflet-slider{
+    background: #394283 !important;
+}
+.leaflet-control-slider-plus{
+    color: lavender !important;
+}
+
+.leaflet-control-slider-minus{
+    color: lavender !important;
+}
+hr{
+    margin-top:30px;
+    margin-bottom:0px !important;
+    border: 3px !important;
+    border-top: 3px solid rgba(57,66,131,1) !important;
+}
+button.blu{
+    background-color: #394283 !important;
+    border-color: #394283 !important;
+}
+a.footlink{
+    color: #e6335b !important;
 }
 </style>
 </body>
