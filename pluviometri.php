@@ -1,12 +1,12 @@
 <?php 
 
 // pluviometri SIAC e ACRONET + ARPA Liguria Provincia di Imperia
-$query_g="SELECT s.id::text, ST_AsGeoJson(geom) as geo, name, concat(d.descrizione, ' - ', descr) as descr, note 
+$query_g="SELECT replace(replace(cod_stazioni,' ','-'),'’','')::text as id, ST_AsGeoJson(geom) as geo, name, concat(d.descrizione, ' - ', descr) as descr, note, s.id_ditta 
 FROM monitoraggio.stazioni_risqueau s
 JOIN monitoraggio.ditta d on d.id=s.id_ditta
 WHERE pluviometro='t'
 UNION 
-SELECT shortcode as id, ST_AsGeoJson(geom) as geo, name, concat('ARPAL - Comune di ', municipality) as descr, '' as note 
+SELECT shortcode as id, ST_AsGeoJson(geom) as geo, name, concat('ARPAL - Comune di ', municipality) as descr, '' as note , 0 as id_ditta
 FROM arpal.pluvio
 ;";
 

@@ -60,13 +60,13 @@ Highcharts.getJSON('./data/<?php echo $id;?>_PluvioNative.json', function (data)
          panKey: 'shift'
       },
       title: {
-           text: 'Dati ultime 12 ore <?php echo $pluvio_name;?>'
+           text: "Dati ultime 12 ore <?php echo $pluvio_name;?>"
       },
       xAxis: {
            type: 'datetime',
-           dateTimeLabelFormats: {
+           /*dateTimeLabelFormats: {
                month: '%e. %b'
-           },
+           },*/
            title: {
                text: 'Date'
            }
@@ -86,7 +86,7 @@ Highcharts.getJSON('./data/<?php echo $id;?>_PluvioNative.json', function (data)
          },
       }],
       tooltip: {
-         xDateFormat: '%A, %b %e',
+         //xDateFormat: '%A, %b %e',
          valueDecimals: 1,
          valueSuffix: ' mm'
       },

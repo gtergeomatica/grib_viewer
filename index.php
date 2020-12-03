@@ -140,7 +140,11 @@ require('wd.php');
 ?>
 
 <?php
-$query0="SELECT name, shortcode FROM arpal.pluvio;";
+$query0="SELECT name, shortcode FROM arpal.pluvio 
+UNION 
+SELECT name, replace(replace(cod_stazioni,' ','-'),'’','') as shortcode 
+FROM monitoraggio.stazioni_risqueau sr
+WHERE pluviometro ='t'";
 
 $result0 = pg_query($conn, $query0);
 while($r0 = pg_fetch_assoc($result0)) {
@@ -216,11 +220,11 @@ while($r0 = pg_fetch_assoc($result0)) {
 		    ,
 			onEachFeature: function (feature, layer) {
 				layer.bindPopup('<div align="right" style="color:grey"><i class="fas fa-pause-circle"></i> Pluviometri </div>'+
-				'<h4><b>Nome</b>: '+
-				feature.properties.name+'</h4>'+
-				'<h4><b>Descrizione</b>: '+
-				feature.properties.descr+'</h4>'+
-				'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#grafico_p_a'+feature.properties.id+'">\<i class="fas fa-chart-line" title="Visualizza grafico pluviometro"></i>Grafico </button>' );
+				'<b>Nome</b>: '+
+				feature.properties.name+'<br>'+
+				'<b>Descrizione</b>: '+
+				feature.properties.descr+'<br><br>'+
+				'<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#grafico_p_a'+feature.properties.id+'">\<i class="fas fa-chart-line" title="Visualizza grafico pluviometro"></i>Grafico </button>' );
 			}
 		});
 		map.addLayer(pluvio_siac);
