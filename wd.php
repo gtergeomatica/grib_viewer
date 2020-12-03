@@ -76,7 +76,7 @@ slider = L.control.slider(function(value) {
         var myhour = mydata.setHours(value);
         var newdate = new Date(myhour);
         
-        return 'Wind direction at ' + newdate.toLocaleString([], {hour: '2-digit', minute:'2-digit'});
+        return 'Wind direction at ' + newdate.toLocaleString([], {year: 'numeric', month:'2-digit', day:'2-digit', hour: '2-digit', minute:'2-digit'});
     },
 	id: 'slider'
 }).addTo(map);
