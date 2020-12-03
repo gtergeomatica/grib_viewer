@@ -34,4 +34,6 @@
 <link href="./vendor/leaflet-list-markers/src/leaflet-list-markers.css" rel="stylesheet" type="text/css">
 
 <link href="./vendor/bootstrap/css/cover.css" rel="stylesheet">
+<link href="./vendor/bootstrap/css/navbar.css" rel="stylesheet">
+<link href="./vendor/bootstrap/css/risqeau.css" rel="stylesheet">
 <link href="./vendor/fontawesome_free/css/all.css" rel="stylesheet" type="text/css">

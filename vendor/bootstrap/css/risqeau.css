@@ -1,0 +1,73 @@
+#map{
+    height:80%;
+}
+#bar{
+    position: absolute;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
+    background: none repeat scroll 0% 0% #394283;
+    border-radius: 5px;
+    z-index: 800;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.1em;
+    font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+.leaflet-control-slider-value{
+    width: auto !important;
+    border-right: 0px !important;
+    color: #FFF !important;
+    margin-left: 12px!important;
+}
+.leaflet-slider{
+    background: #394283 !important;
+}
+.leaflet-control-slider-plus{
+    color: lavender !important;
+}
+
+.leaflet-control-slider-minus{
+    color: lavender !important;
+}
+hr{
+    margin-top:30px;
+    margin-bottom:0px !important;
+    border: 3px !important;
+    border-top: 3px solid rgba(57,66,131,1) !important;
+}
+button.blu{
+    background-color: #394283 !important;
+    border-color: #394283 !important;
+}
+a.footlink{
+    color: #e6335b !important;
+}
+nav.nav{
+    margin-right: 20px !important;
+    margin-top: 5px !important;
+}
+a.nav-link{
+    color: #e6335b !important;
+    font-weight: 500;
+    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0) !important;
+}
+a.dropdown-item{
+    color: #394283 !important;
+    font-weight: 500;
+    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0) !important;
+}
+span.navbar-brand{
+    color: #394283 !important;
+    font-weight: 500;
+    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0) !important;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+    background-color: rgba(57, 66, 131, .2) !important;
+}
+div.justify-content-md-center{
+    justify-content: flex-end !important;
+}
