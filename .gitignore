@@ -1,6 +1,6 @@
 conn.php
-*.php~
 data.php
+*.php~
 
 python/credenziali.py
 python/*.pyc
