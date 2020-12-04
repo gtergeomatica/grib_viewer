@@ -30,47 +30,10 @@ $hour = round(abs($target - $origin)/(60*60),0);
   <body class="text-center">
   <!--div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column"-->
   <div class="cover-container" style="background-color: lavender">
-  <header class="masthead mb-auto">
-    <div class="inner" style="margin-top: 0px;">
-      <h1 class="masthead-brand" style="margin-left: 20px;"><span style="color: #e6335b;">Demo Risq'eau</span> <span style="color: #394283;">WebGIS</span>
-      <img class="masthead" src="./icon/logo_risqueau.png" style="max-height: 100px; margin-bottom: 0px !important;"></h1>
-      <!--nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link " href="http://servizi-meteoliguria.arpal.gov.it/MAPPE/mappe.php?pagina=12" target="_blank">Meteo Liguria ARPAL</a>
-        <a class="nav-link" href="https://www.windy.com/multimodel/43.859/7.962?gfs,rainAccu,43.633,7.962,9,m:eSgagor" target="_blank">San Lorenzo al Mare</a>
-        <a class="nav-link" href="https://www.windy.com/multimodel/43.797/7.647?gfs,rainAccu,43.571,7.646,9,m:eR8agnT" target="_blank">Vallecrosia</a>
-        <a class="nav-link" href="http://www.lamma.rete.toscana.it/modelli/atmo/mappe/atmosfera?model=wrf03ecm" target="_blank">Consorzio LAMMA</a>
-      </nav-->
-<nav class="navbar navbar-expand-lg navbar-light rounded">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <span class="navbar-brand">Link utili</span>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="https://www.risqeau.eu/ " target="_blank">Progetto Risq'eau</a>
-      </li>
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">WINDY.COM</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown03">
-          <a class="dropdown-item" href="https://www.windy.com/multimodel/43.859/7.962?gfs,rainAccu,43.633,7.962,9,m:eSgagor" target="_blank">San Lorenzo al Mare</a>
-          <a class="dropdown-item" href="https://www.windy.com/multimodel/43.797/7.647?gfs,rainAccu,43.571,7.646,9,m:eR8agnT" target="_blank">Vallecrosia</a>
-        </div>
-      </li>
-        <li class="nav-item">
-        <a class="nav-link" href="http://servizi-meteoliguria.arpal.gov.it/MAPPE/mappe.php?pagina=12" target="_blank">Meteo Liguria ARPAL</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="http://www.lamma.rete.toscana.it/modelli/atmo/mappe/atmosfera?model=wrf03ecm" target="_blank">Consorzio LAMMA</a>
-      </li>
-      </ul>
-    </div>
-  </nav>
-    </div>
-  </header>
+  <?php
+	//javascript
+	require('./header.php');
+	?>
   <div id="map"></div>
   <div id="bar"></div>
   
@@ -92,7 +55,36 @@ $hour = round(abs($target - $origin)/(60*60),0);
   <script>
 		//aa
 		//let map = L.map('map');
-		let map = L.map('map').setView([43.5, 6.912661], 10);
+		let map = L.map('map',{
+            timeDimension: true,
+            timeDimensionOptions: {
+                timeInterval: "2020-12-04/2020-12-07",
+                period: "PT1H"
+            },
+            timeDimensionControl: true,
+        }).setView([43.5, 6.912661], 10);
+        
+		// per mantenere il livello di zoom e center al refresh
+		var hash = new L.Hash(map);
+		
+		
+		
+        var wmsUrl = "https://geoportale.lamma.rete.toscana.it/geoserver/ARW_3KM_RUN00/ows?"
+        var arw_3km_1h = L.tileLayer.wms(wmsUrl, {
+            layers: 'arw_3km_Total_precipitation_surface_1_Hour_Accumulation_20201204T000000000Z',
+            format: 'image/png',
+            transparent: true,
+            attribution: 'Consorzio Lamma'
+        });
+        //map.addLayer(wmsLayer);
+
+        var td_arw_3km_1h = L.timeDimension.layer.wms(arw_3km_1h);
+        td_arw_3km_1h.addTo(map); // questo è il duplicato di quello che c'è sotto
+        map.addLayer(arw_3km_1h);
+        
+		
+		//*******************************************************************************************************
+		//MAPPE DI BASE
         var check=0;
         let vento;
         let magnitude;
@@ -106,8 +98,7 @@ $hour = round(abs($target - $origin)/(60*60),0);
             subdomains: 'abcd',
             maxZoom: 19
         }).addTo(map);
-
-
+        
 
 		// measure plugin
 		/*var measureControl = new L.Control.Measure({
@@ -128,8 +119,9 @@ $hour = round(abs($target - $origin)/(60*60),0);
             attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>',
             maxZoom: 28
         });
+		//*******************************************************************************************************
 
-
+        
 
 </script>
 
@@ -139,6 +131,16 @@ $hour = round(abs($target - $origin)/(60*60),0);
 require('wd.php');
 ?>
 
+  <!--script>
+        var wmsUrl = "https://geoportale.lamma.rete.toscana.it/geoserver/ARW_3KM_RUN00/ows?"
+        var wmsLayer = L.tileLayer.wms(wmsUrl, {
+            layers: 'arw_3km_Total_precipitation_surface_1_Hour_Accumulation_20201204T000000000Z',
+            attribution: 'Consorzio Lamma'
+        });
+
+        var tdWmsLayer = L.timeDimension.layer.wms(wmsLayer);
+        tdWmsLayer.addTo(map);
+  </script-->
 <?php
 $query0="SELECT name, shortcode FROM arpal.pluvio 
 UNION 
@@ -240,7 +242,8 @@ while($r0 = pg_fetch_assoc($result0)) {
         	};
 		
 		// gruppo con gli strumenti e altre eventuali mappe
-        var overlayLayers = {'<img src="icon/segn_no_lavorazione.png" width="20" height="24" alt=""> Pluviometri': pluvio_siac//,
+        var overlayLayers = {'<img src="icon/pluvio.png" width="20" height="24" alt=""> Pluviometri': pluvio_siac,
+		'Previsioni LAMMA (Cumulata precipitazione oraria ARW 3km)': arw_3km_1h
         //,'Vento1': vento1,'vento2': vento2//'<img src="icon/segn_lavorazione.png" width="20" height="24" alt="">  Segnalazioni in lavorazione': markers1,
         //'<img src="icon/segn_chiusa.png" width="20" height="24" alt="">  Segnalazioni chiuse': layer_v_segnalazioni_2,
         //'<img src="icon/sopralluogo.png" width="20" height="24" alt="">  Altri presidi': presidi,

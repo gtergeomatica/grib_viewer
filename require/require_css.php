@@ -27,6 +27,7 @@
 <!-- Custom styles for this template -->
 
 <link rel="stylesheet" href="./vendor/Leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="./vendor/Leaflet.TimeDimension-master/dist/leaflet.timedimension.control.min.css" />
 <link rel="stylesheet" href="./vendor/bootstrap/css/examples.css" />
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
 <!-- Plugin -->
