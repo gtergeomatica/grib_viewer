@@ -12,10 +12,44 @@
     z-index: 800;
     text-align: center;
     text-decoration: none;
-    color: #000;
+    color: #fff;
     font-weight: bold;
     font-size: 1.1em;
     font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+#lamma{
+    position: absolute;
+    right: 0px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
+    background: none repeat scroll 0% 0% #394283;
+    border-radius: 5px;
+    z-index: 800;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1em;
+    font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+.leaflet-control-timecontrol{
+    background-color: #394283 !important;
+    color: #FFFFFF !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    font-weight: bold !important;
+    font-size: 1.1em !important;
+}
+.leaflet-bar-timecontrol .leaflet-control-timecontrol{
+    border: 0px !important;
+}
+.timecontrol-speed{
+    border-color: #394283 !important;
+}
+.slider {
+    margin-top: 12px !important;
 }
 .leaflet-control-slider-value{
     width: auto !important;
@@ -34,7 +68,7 @@
     color: lavender !important;
 }
 hr{
-    margin-top:30px;
+    margin-top:40px;
     margin-bottom:0px !important;
     border: 3px !important;
     border-top: 3px solid rgba(57,66,131,1) !important;
@@ -70,4 +104,7 @@ span.navbar-brand{
 }
 div.justify-content-md-center{
     justify-content: flex-end !important;
+}
+.leaflet-control-layers-list{
+    text-align: left !important;
 }
