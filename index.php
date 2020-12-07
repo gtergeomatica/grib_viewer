@@ -242,32 +242,18 @@ while($r0 = pg_fetch_assoc($result0)) {
 		
 		// gruppo con gli strumenti e altre eventuali mappe
         var overlayLayers = {'<img src="icon/pluvio.png" width="20" height="24" alt=""> Pluviometri': pluvio_siac,
-		'Previsioni LAMMA (Cumulata precipitazione oraria ARW 3km)': td_arw_3km_1h
+		'Previsioni LAMMA (Cumulata precipitazione oraria ARW 3km)': td_arw_3km_1h_prec,
+        'Previsioni LAMMA (Umidità relativa al suolo)': td_arw_3km_1h_hu
         //,'Vento1': vento1,'vento2': vento2//'<img src="icon/segn_lavorazione.png" width="20" height="24" alt="">  Segnalazioni in lavorazione': markers1,
         //'<img src="icon/segn_chiusa.png" width="20" height="24" alt="">  Segnalazioni chiuse': layer_v_segnalazioni_2,
         //'<img src="icon/sopralluogo.png" width="20" height="24" alt="">  Altri presidi': presidi,
         //'<img src="icon/elemento_rischio.png" width="20" height="24" alt=""> Provvedimenti cautelari':pc
         }
-
-        map.on('overlayadd', function(eventLayer) {
-        if (eventLayer.name == 'Previsioni LAMMA (Cumulata precipitazione oraria ARW 3km)') {
-            arw_3km_1h_legend.addTo(this);
-        }/*  else if (eventLayer.name == 'SAPO - average wave direction') {
-            sapoMeanDirectionLegend.addTo(this);
-        } else if (eventLayer.name == 'SAPO - direction of the peak') {
-            sapoPeakDirectionLegend.addTo(this);
-        } */
-        });
-
-        map.on('overlayremove', function(eventLayer) {
-            if (eventLayer.name == 'Previsioni LAMMA (Cumulata precipitazione oraria ARW 3km)') {
-                map.removeControl(arw_3km_1h_legend);
-            } /* else if (eventLayer.name == 'SAPO - average wave direction') {
-                map.removeControl(sapoMeanDirectionLegend);
-            } else if (eventLayer.name == 'SAPO - direction of the peak') {
-                map.removeControl(sapoPeakDirectionLegend);
-            } */
-        });
+        </script>
+        <?php 
+		require('./add_timewms_legend.php');
+		?>
+        <script>
 		
         //legenda
         L.control.layers(baseLayers,overlayLayers,
@@ -277,7 +263,8 @@ while($r0 = pg_fetch_assoc($result0)) {
         
         
         //add timeDimension Layer to map (must be run after layer tree initialisation)
-        td_arw_3km_1h.addTo(map); 
+        td_arw_3km_1h_prec.addTo(map);
+        td_arw_3km_1h_hu.addTo(map); 
         
         
 		//inizialize Leaflet List Markers
