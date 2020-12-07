@@ -11,7 +11,10 @@ $milliseconds = round(microtime(true) * 1000);
 //echo $milliseconds;
 //$target = strtotime(date("Y-m-d H:i:s"));
 //echo $target."<br>";
-$hour = round(abs($target - $origin)/(60*60),0);
+
+//$hour = round(abs($target - $origin)/(60*60),0);
+$hour = intval(abs($target - $origin)/(60*60));
+
 //echo $hour;
 //exit;
 
