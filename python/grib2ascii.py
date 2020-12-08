@@ -137,6 +137,13 @@ This message is automaticaly sent from Python.""".format(file_name)
 
     k=0
     while k<48:
+        # Temperatura a 2 m - banda 7 + k * 292
+        temp='/usr/bin/gdal_translate -b {0} -of AAigrid {4}{1}.tiff {5}/{2}_{3}.asc'.format((7+k*292),file_name,'temp',(k+1),path_grib,data_path)
+        try:
+            ret = os.system(temp)
+            logging.debug(ret)
+        except Exception as e:
+            logging.error(e)
         # wind speed - banda 12 + k * 292
         ws='/usr/bin/gdal_translate -b {0} -of AAigrid {4}{1}.tiff {5}/{2}_{3}.asc'.format((12+k*292),file_name,'ws',(k+1),path_grib,data_path)
         try:
@@ -158,10 +165,19 @@ This message is automaticaly sent from Python.""".format(file_name)
         try:
             ret = os.system(ws_v)
             logging.debug(ret)
-            logging.info('Hour {} converted'.format(k+1))
+            #logging.info('Hour {} converted'.format(k+1))
+        except Exception as e:
+            logging.error(e)
+        #*********************************************************************************   
+        # # Total precipitation cumulated
+        prec_cum='/usr/bin/gdal_translate -b {0} -of AAigrid {4}{1}.tiff {5}/{2}_{3}.asc'.format((233+k*292),file_name,'cum_rain',(k+1),path_grib,data_path)
+        try:
+            ret = os.system(prec_cum)
+            logging.debug(ret)
         except Exception as e:
             logging.error(e)   
         # vado avanti con il contatore
+        logging.info('Hour {} converted'.format(k+1))
         k+=1
         
 
