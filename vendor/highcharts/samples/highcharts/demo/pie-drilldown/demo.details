@@ -1,0 +1,11 @@
+---
+name: Pie with drilldown
+authors:
+  - Torstein Hønsi
+js_wrap: b
+skipTest: true
+tags:
+  - Highcharts demo
+categories:
+  - Pie charts
+...

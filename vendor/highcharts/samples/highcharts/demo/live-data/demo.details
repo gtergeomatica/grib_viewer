@@ -1,0 +1,10 @@
+---
+name: Live data from dynamic CSV
+authors:
+  - Christer Vasseng
+js_wrap: b
+tags:
+  - Highcharts demo
+categories:
+  - Dynamic charts
+...

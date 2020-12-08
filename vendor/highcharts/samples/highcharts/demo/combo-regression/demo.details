@@ -1,0 +1,10 @@
+---
+name: Scatter with regression line
+authors:
+  - Torstein Hønsi
+js_wrap: b
+tags:
+  - Highcharts demo
+categories:
+  - Combinations
+...

@@ -1,0 +1,10 @@
+---
+name: Styled mode pie
+authors:
+  - Torstein Hønsi
+js_wrap: b
+tags:
+  - Highcharts demo
+categories:
+  - Styled mode (CSS styling)
+...

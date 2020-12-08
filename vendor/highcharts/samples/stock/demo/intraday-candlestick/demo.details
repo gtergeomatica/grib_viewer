@@ -1,0 +1,10 @@
+---
+name: Intraday candlestick
+authors:
+  - Torstein Hønsi
+js_wrap: b
+tags:
+  - Highcharts Stock demo
+categories:
+  - General
+...

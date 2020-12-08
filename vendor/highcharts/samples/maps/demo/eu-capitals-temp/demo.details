@@ -1,0 +1,11 @@
+---
+name: Current temperatures in capitals of Europe
+authors:
+  - Daniel Studencki
+js_wrap: b
+requiresManualTesting: true
+tags:
+  - Highcharts Maps demo
+categories:
+  - Dynamic
+...

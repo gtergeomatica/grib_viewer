@@ -1,0 +1,11 @@
+---
+name: Master-detail chart
+authors:
+  - Torstein Hønsi
+requiresManualTesting: true
+js_wrap: b
+tags:
+  - Highcharts demo
+categories:
+  - Dynamic charts
+...

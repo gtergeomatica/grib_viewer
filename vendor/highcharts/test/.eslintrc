@@ -1,0 +1,7 @@
+
+parserOptions:
+    ecmaVersion: 2017
+
+rules:
+    no-undefined: 0
+    object-shorthand: 0

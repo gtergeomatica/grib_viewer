@@ -1,0 +1,11 @@
+---
+name: SMA volume by price
+authors:
+  - Torstein Hønsi
+compareTooltips: true
+js_wrap: b
+tags:
+  - Highcharts Stock demo
+categories:
+  - Flags and Indicators
+...

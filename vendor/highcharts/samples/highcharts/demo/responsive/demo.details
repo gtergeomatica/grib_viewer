@@ -1,0 +1,10 @@
+---
+name: Responsive chart
+authors:
+  - Torstein Hønsi
+js_wrap: b
+tags:
+  - Highcharts demo
+categories:
+  - Dynamic charts
+...

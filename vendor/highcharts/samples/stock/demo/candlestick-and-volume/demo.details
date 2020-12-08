@@ -1,0 +1,11 @@
+---
+name: 'Two panes, candlestick and volume'
+authors:
+  - Torstein Hønsi
+compareTooltips: true
+js_wrap: b
+tags:
+  - Highcharts Stock demo
+categories:
+  - General
+...
