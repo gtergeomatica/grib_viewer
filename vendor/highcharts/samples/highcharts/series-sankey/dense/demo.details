@@ -1,6 +1,0 @@
----
- name: Highcharts Sankey Diagram with Dense Data
- authors:
-   - Torstein Hønsi
- js_wrap: b
-...

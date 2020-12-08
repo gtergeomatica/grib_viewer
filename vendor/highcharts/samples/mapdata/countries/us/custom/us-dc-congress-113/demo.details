@@ -1,5 +1,0 @@
----
- name: District of Columbia congressional districts - Highmaps
- description: Highmaps demo
- js_wrap: b
-...

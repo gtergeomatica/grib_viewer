@@ -1,7 +1,0 @@
----
- name: Highcharts Stock Demo
- authors:
-   - Torstein Hønsi
- requiresManualTesting: true
- js_wrap: b
-...

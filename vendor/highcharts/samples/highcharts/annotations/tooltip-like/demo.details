@@ -1,6 +1,0 @@
----
- name: Highcharts Anootations Demo
- authors:
-   - Sebastian Domas
- js_wrap: b
-...

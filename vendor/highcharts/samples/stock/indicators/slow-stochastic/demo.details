@@ -1,6 +1,0 @@
----
- name: Highstock Demo
- authors:
-   - Pawel fus
- js_wrap: b
-...

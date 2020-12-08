@@ -1,6 +1,0 @@
----
- name: Highstock Demo
- authors:
-   - Wojciech Chmiel
- js_wrap: b
-...

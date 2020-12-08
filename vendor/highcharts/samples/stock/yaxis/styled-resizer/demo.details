@@ -1,6 +1,0 @@
----
- name: Highcharts Stock Demo
- authors:
-   - Kacper Madej
- js_wrap: b
-...

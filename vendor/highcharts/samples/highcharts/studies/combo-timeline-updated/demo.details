@@ -1,6 +1,0 @@
----
- name: Highcharts 10 Years Anniversary Timeline
- authors:
-   - Torstein Hønsi
- js_wrap: b
-...

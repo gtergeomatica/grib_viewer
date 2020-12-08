@@ -1,6 +1,0 @@
----
- name: Highcharts Box Plot and Jittered Scatter Plot
- authors:
-   - Torstein Hønsi
- js_wrap: b
-...

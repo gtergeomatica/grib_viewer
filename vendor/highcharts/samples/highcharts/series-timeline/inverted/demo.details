@@ -1,6 +1,0 @@
----
- name: Highcharts Demo
- authors:
-   - Daniel Studencki
- js_wrap: b
-...

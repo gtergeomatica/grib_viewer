@@ -1,1 +1,0 @@
-Click "Add Circle" then add an annotation on the chart. Expected is a circle annotation on the chart.

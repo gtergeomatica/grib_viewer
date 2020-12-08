@@ -1,6 +1,0 @@
----
- name: Highcharts Annotations Demo
- authors:
-   - Piotr Madej
- js_wrap: b
-...

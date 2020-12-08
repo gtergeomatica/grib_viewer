@@ -1,6 +1,0 @@
----
- name: Venn diagram with Highcharts
- authors:
-   - Mustapha Mekhatria
- js_wrap: b
-...

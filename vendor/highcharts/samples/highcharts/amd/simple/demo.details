@@ -1,7 +1,0 @@
----
- name: Highcharts AMD Demo
- authors:
-   - Sophie Bremer
- requiresManualTesting: true
- js_wrap: b
-...

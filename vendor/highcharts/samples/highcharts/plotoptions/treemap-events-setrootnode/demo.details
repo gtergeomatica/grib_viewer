@@ -1,6 +1,0 @@
----
- name: Treemap setRootNode event demo
- authors:
-   - Jon Arild Nygård
- js_wrap: b
-...

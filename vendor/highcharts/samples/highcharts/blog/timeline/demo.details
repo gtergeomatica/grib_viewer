@@ -1,6 +1,0 @@
----
- name: Highcharts Demo Time line series
- authors:
-   - Gert Vaartjes
- js_wrap: b
-...

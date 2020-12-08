@@ -1,1 +1,0 @@
-Verify that the tooltips display correctly and outside each chart's blue box.

@@ -1,6 +1,0 @@
----
- name: Highstock Demo
- authors:
-   - Kamil Kulig
- js_wrap: b
-...
