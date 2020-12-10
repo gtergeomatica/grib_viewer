@@ -41,9 +41,6 @@ $hour = intval(abs($target - $origin)/(60*60));
 	require('./header.php');
 	?>
   <div id="map"></div>
-  <div id="bar"><span>Dati GRIB</span></div>
-  <div id="lamma"><span>Dati Consorzio LAMMA</span></div>
-  
 
 
 	<?php
@@ -85,6 +82,8 @@ $hour = intval(abs($target - $origin)/(60*60));
 		//MAPPE DI BASE
         var check=0;
         let vento;
+        let cum_rain;
+        let temperature;
         let magnitude;
         //var vento1;
         //var vento2;
@@ -123,12 +122,81 @@ $hour = intval(abs($target - $origin)/(60*60));
 
 </script>
 
+<!--script>
+    function changeSlider() {
+      var radioW = document.getElementById("layw");
+      var radioR = document.getElementById("layr");
+      if (radioW.checked == true){
+        <?php
+	//javascript
+        //require('wd.php');
+        ?>  
+      } if (radioR.checked == true) {
+        <?php
+	//javascript
+        //require('cum_rain.php');
+        ?> 
+      }
+    }
+</script-->
+
 <?php
+$wind_status = 'checked';
+$rain_status = 'unchecked';
+$temp_status = 'unchecked';
+if(isset($_POST["layer"])){
+    if($_POST["layer"]=='wind'){
+        $wind_status = 'checked';
+        $rain_status = 'unchecked';
+        $temp_status = 'unchecked';
+        require('wd.php');
+    }
+    else if($_POST["layer"]=='rain'){
+        $wind_status = 'unchecked';
+        $rain_status = 'checked';
+        $temp_status = 'unchecked';
+        require('cum_rain.php');
+    }
+    else if($_POST["layer"]=='temp'){
+        $wind_status = 'unchecked';
+        $rain_status = 'unchecked';
+        $temp_status = 'checked';
+        require('temp.php');
+    }
+    
+    //echo $_POST["layer"];
+}
+else{
+    require('wd.php');
+}
 // qua sarà da metter una scelta in funzione di quello che vuole vedere l'utente
 // forse nella pagina in basso
-require('wd.php');
+//require('wd.php');
+//require('cum_rain.php');
 require('time_wms.php');
 ?>
+  <div id="bar"><span>Dati GRIB</span>
+  <?php
+    //if(isset($_POST['layer']))
+    //{
+    //echo "The layer you have selected ".$_POST['layer'];
+    //}
+    ?>
+  <form action="" method="post">
+  <!--form action="">
+      <input type="radio" id="layw" name="layer" onclick="changeSlider()" value="wind" checked>
+      <label for="wind">Wind direction</label>
+      <input type="radio" id="layr" name="layer" onclick="changeSlider()" value="rain">
+      <label for="rain">Precipitation accumulation</label-->
+      <input type="radio" id="layw" name="layer" onclick="javascript: submit()" value="wind" <?php print $wind_status; ?>>
+      <label for="wind">Wind direction</label>
+      <input type="radio" id="layp" name="layer" onclick="javascript: submit()" value="rain" <?php print $rain_status; ?>>
+      <label for="rain">Precipitation accumulation</label>
+      <input type="radio" id="layt" name="layer" onclick="javascript: submit()" value="temp" <?php print $temp_status; ?>>
+      <label for="rain">Temperature 2m above ground</label>
+      <!--input type="submit" value="Submit"-->
+    </form></div>
+  <div id="lamma"><span>Dati Consorzio LAMMA</span></div>
 
   <!--script>
         var wmsUrl = "https://geoportale.lamma.rete.toscana.it/geoserver/ARW_3KM_RUN00/ows?"
@@ -242,8 +310,8 @@ while($r0 = pg_fetch_assoc($result0)) {
 		
 		// gruppo con gli strumenti e altre eventuali mappe
         var overlayLayers = {'<img src="icon/pluvio.png" width="20" height="24" alt=""> Pluviometri': pluvio_siac,
-		'Previsioni LAMMA (Cumulata precipitazione oraria ARW 3km)': td_arw_3km_1h_prec,
-        'Previsioni LAMMA (Umidità relativa al suolo)': td_arw_3km_1h_hu
+		'Previsioni LAMMA <br> (Cumulata precipitazione oraria ARW 3km)': td_arw_3km_1h_prec,
+        'Previsioni LAMMA <br> (Umidità relativa al suolo)': td_arw_3km_1h_hu
         //,'Vento1': vento1,'vento2': vento2//'<img src="icon/segn_lavorazione.png" width="20" height="24" alt="">  Segnalazioni in lavorazione': markers1,
         //'<img src="icon/segn_chiusa.png" width="20" height="24" alt="">  Segnalazioni chiuse': layer_v_segnalazioni_2,
         //'<img src="icon/sopralluogo.png" width="20" height="24" alt="">  Altri presidi': presidi,
@@ -257,14 +325,15 @@ while($r0 = pg_fetch_assoc($result0)) {
 		
         //legenda
         L.control.layers(baseLayers,overlayLayers,
-        {collapsed:true,
+        {collapsed:false,
 		position: 'bottomleft'}
         ).addTo(map);
         
         
         //add timeDimension Layer to map (must be run after layer tree initialisation)
-        td_arw_3km_1h_prec.addTo(map);
-        td_arw_3km_1h_hu.addTo(map); 
+        //commented in order to made the not checked by default
+        //td_arw_3km_1h_prec.addTo(map);
+        //td_arw_3km_1h_hu.addTo(map); 
         
         
 		//inizialize Leaflet List Markers

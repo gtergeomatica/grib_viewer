@@ -5,6 +5,8 @@
 
 
 <script>
+    //var phpdata = "<?php echo $start_date;?>";
+    //var startDate = new Date(phpdata);
     var startDate = new Date();
     startDate.setUTCHours(0, 0, 0, 0);
     
