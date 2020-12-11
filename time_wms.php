@@ -75,7 +75,7 @@
         var src = wmsUrl_arw_3km_1h + "service=WMS&request=GetLegendGraphic&format=image/png&width=20&height=20&layer=arw_3km_Total_precipitation_surface_1_Hour_Accumulation_" + layerName + "&";
         var div = L.DomUtil.create('div', 'info legend');
         div.innerHTML +=
-            '<img src="' + src + '" alt="legend" style="width: 70%;">';
+            '<span class="modallegend">Cumulata precipitazione oraria ARW 3km</span><br><img src="' + src + '" alt="legend" style="width: 70%;">';
         return div;
     };
     
@@ -86,7 +86,7 @@
         var src = wmsUrl_arw_3km_1h + "service=WMS&request=GetLegendGraphic&format=image/png&width=20&height=20&layer=arw_3km_Relative_humidity_height_above_ground_" + layerName + "&";
         var div = L.DomUtil.create('div', 'info legend');
         div.innerHTML +=
-            '<img src="' + src + '" alt="legend" style="width: 70%;">';
+            '<span class="modallegend">Umidità relativa al suolo</span><br><img src="' + src + '" alt="legend" style="width: 70%;">';
         return div;
     };
     

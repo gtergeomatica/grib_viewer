@@ -77,6 +77,10 @@ button.blu{
     background-color: #394283 !important;
     border-color: #394283 !important;
 }
+button.white{
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+}
 a.footlink{
     color: #e6335b !important;
 }
@@ -107,4 +111,9 @@ div.justify-content-md-center{
 }
 .leaflet-control-layers-list{
     text-align: left !important;
+}
+span.modallegend{
+    color:#394283; 
+    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0);
+    font-size: small;
 }

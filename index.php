@@ -196,7 +196,8 @@ require('time_wms.php');
       <label for="rain">Temperature 2m above ground</label>
       <!--input type="submit" value="Submit"-->
     </form></div>
-  <div id="lamma"><span>Dati Consorzio LAMMA</span></div>
+  <div id="lamma"><span>Dati Consorzio LAMMA</span>&nbsp;&nbsp;&nbsp;<!--button type="button" class="btn btn-primary blu" data-toggle="modal" data-target="#exampleModal2" style="margin-left:10px;"><i class="fas fa-info-circle"></i>Legends</button--><a data-toggle="modal" href="#exampleModal2"><i class="fas fa-list-alt"></i>&nbsp;Show Legends</a>
+</div>
 
   <!--script>
         var wmsUrl = "https://geoportale.lamma.rete.toscana.it/geoserver/ARW_3KM_RUN00/ows?"
@@ -321,6 +322,28 @@ while($r0 = pg_fetch_assoc($result0)) {
         <?php 
 		require('./add_timewms_legend.php');
 		?>
+        
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel"><span style="color: #e6335b;">Risq'eau</span> <span style="color: #394283;">WebGIS</span>
+        <img class="masthead" src="./icon/logo_risqueau.png" style="max-height: 100px; margin-bottom: 0px !important;"></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: left!important;">
+        <span id="lammalegend" ></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary blu" data-dismiss="modal">Close</button>
+        <!--button type="button" class="btn btn-primary">Save changes</button-->
+      </div>
+    </div>
+  </div>
+</div>
+        
         <script>
 		
         //legenda
@@ -384,78 +407,18 @@ while($r0 = pg_fetch_assoc($result0)) {
         //$("p.leaflet-control-slider-value").html($("a.leaflet-control-slider-toggle").attr("title"))
     </script-->
 </div>
-<!--style>
-#map{
-    height:80%;
+<style>
+.modal-content{
+    height:100%;
 }
-#bar{
-    position: absolute;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    margin-top: 20px;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
-    background: none repeat scroll 0% 0% #394283;
-    border-radius: 5px;
-    z-index: 800;
-    text-align: center;
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-    font-size: 1.1em;
-    font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+.modal-dialog{
+      height: 70%;
+      overflow-y: initial !important
 }
-.leaflet-control-slider-value{
-    width: auto !important;
-    border-right: 0px !important;
-    color: #FFF !important;
-    margin-left: 12px!important;
+.modal-body{
+  overflow-y: auto;
 }
-.leaflet-slider{
-    background: #394283 !important;
-}
-.leaflet-control-slider-plus{
-    color: lavender !important;
-}
-
-.leaflet-control-slider-minus{
-    color: lavender !important;
-}
-hr{
-    margin-top:30px;
-    margin-bottom:0px !important;
-    border: 3px !important;
-    border-top: 3px solid rgba(57,66,131,1) !important;
-}
-button.blu{
-    background-color: #394283 !important;
-    border-color: #394283 !important;
-}
-a.footlink{
-    color: #e6335b !important;
-}
-nav.nav{
-    margin-right: 20px !important;
-    margin-top: 5px !important;
-}
-a.nav-link{
-    color: #e6335b !important;
-    font-weight: 500;
-    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0) !important;
-}
-a.dropdown-item{
-    color: #394283 !important;
-    font-weight: 500;
-    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0) !important;
-}
-span.navbar-brand{
-    color: #394283 !important;
-    font-weight: 500;
-    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0) !important;
-}
-div.justify-content-md-center{
-    justify-content: flex-end !important;
-}
-</style-->
+</style>
 </body>
 </html>
 <?php 
