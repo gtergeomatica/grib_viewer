@@ -117,3 +117,13 @@ span.modallegend{
     text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0);
     font-size: small;
 }
+.modal-content{
+    height:100%;
+}
+.modal-dialog{
+      height: 70%;
+      overflow-y: initial !important
+}
+.modal-body{
+  overflow-y: auto;
+}

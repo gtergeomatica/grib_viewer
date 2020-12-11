@@ -407,18 +407,6 @@ while($r0 = pg_fetch_assoc($result0)) {
         //$("p.leaflet-control-slider-value").html($("a.leaflet-control-slider-toggle").attr("title"))
     </script-->
 </div>
-<style>
-.modal-content{
-    height:100%;
-}
-.modal-dialog{
-      height: 70%;
-      overflow-y: initial !important
-}
-.modal-body{
-  overflow-y: auto;
-}
-</style>
 </body>
 </html>
 <?php 
