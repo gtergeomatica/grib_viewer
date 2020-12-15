@@ -148,3 +148,9 @@ span.modallegend{
     text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0);
     font-weight: bold;
 }
+.dropdown-item:focus, .dropdown-item:hover {
+    color: #16181b;
+    text-decoration: none;
+    background-color: #f8f9fa;
+    box-sizing: border-box !important;
+}
