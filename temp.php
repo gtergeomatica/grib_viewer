@@ -9,31 +9,71 @@ slider = L.control.slider(function(value) {
 	//console.log(value);
 	
 	
-	d3.text('./data/temp_'+value+'.asc', function (temp) {
-			if (check>0){
-				map.removeLayer(temperature);
-			} 
-			let t = L.ScalarField.fromASCIIGrid(temp);
-            //console.log(t);
-            temperature = L.canvasLayer.scalarField(t, {
-            color: chroma.scale(['#2c7bb6', '#abd9e9', '#ffffbf', '#fdae61', '#d7191c']).domain(t.range),
-                opacity: 0.5
+	d3.text('./data/ws_u_'+value+'.asc', function (u) {
+		d3.text('./data/ws_v_'+value+'.asc', function (v) {
+            d3.text('./data/temp_'+value+'.asc', function (temp) {
+                    if (check>0){
+                        map.removeLayer(vento);
+                        map.removeLayer(temperature);
+                        colorbar.remove();
+                    }
+                    let vf = L.VectorField.fromASCIIGrids(u, v);
+                    vento = L.canvasLayer.vectorFieldAnim(vf, {
+                        paths: 800,
+                        maxAge: 200,
+                    });
+                    let t = L.ScalarField.fromASCIIGrid(temp);
+                    var range = t.range;
+                    var scale = chroma.scale(['#2c7bb6', '#abd9e9', '#ffffbf', '#fdae61', '#d7191c']).domain(t.range);
+                    temperature = L.canvasLayer.scalarField(t, {
+                        color: scale,
+                        opacity: 0.5
+                    });
+                    
+                    map.addLayer(temperature);
+                    map.addLayer(vento);
+                    check=1;
+                    
+                    colorbar = L.control.colorBar(scale, range, {
+                        title: 'Temperature (°C)',
+                        units: '°C',
+                        steps: 100,
+                        decimals: 1,
+                        width: 350,
+                        height: 20,
+                        position: 'bottomleft',
+                        background: 'rgba(0, 0, 0, .2)',
+                        textColor: 'white',
+                        textLabels: [range[0].toFixed(0), range[1].toFixed(0)],
+                        labels: [range[0], range[1]],
+                        labelFontSize: 9
+                    }).addTo(map);
+                    
+                    vento.on('click', function (e) {
+                        if (e.value !== null) {
+                            let vector = e.value;
+                            let vv = vector.magnitude().toFixed(2);
+                            let d = vector.directionTo().toFixed(0);
+                            let html = (`<span class="popupText">${vv} m/s to ${d}&deg</span>`);
+                            let popup = L.popup()
+                                .setLatLng(e.latlng)
+                                .setContent(html)
+                                .openOn(map);
+                        }
+                    });
+                    /* temperature.on('click', function (e) {
+                        if (e.value !== null) {
+                            let tv = e.value.toFixed(2);
+                            let html = (`<span class="popupText">${tv}&degC</span>`);
+                            let popup = L.popup()
+                                .setLatLng(e.latlng)
+                                .setContent(html)
+                                .openOn(map);
+                        }
+                    }); */
             });
-			
-			map.addLayer(temperature);
-			check=1;
-			temperature.on('click', function (e) {
-				if (e.value !== null) {
-					let tv = e.value.toFixed(2);
-					let html = (`<span class="popupText">${tv}&degC</span>`);
-					let popup = L.popup()
-						.setLatLng(e.latlng)
-						.setContent(html)
-						.openOn(map);
-				}
-			});
-		//});
-	});
+        });
+    });
 },{
 	//slider temperature
 	max: 47,

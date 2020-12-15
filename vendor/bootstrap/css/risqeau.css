@@ -122,8 +122,29 @@ span.modallegend{
 }
 .modal-dialog{
       height: 70%;
-      overflow-y: initial !important
+      overflow-y: initial !important;
 }
 .modal-body{
   overflow-y: auto;
+}
+.icon {
+	display: inline-block;
+	margin: 2px;
+	height: 16px;
+	width: 16px;
+	background-color: #ccc;
+}
+.icon-pluvio {
+	background: url('../../../icon/pluvio_bar.png') center center no-repeat;
+}
+.icon-lamma {
+	background: url('../../../icon/lamma_bar.png') center center no-repeat;
+}
+*, ::after, ::before {
+    box-sizing: content-box  !important;
+}
+.leaflet-panel-layers-title{
+    color:#394283; 
+    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0);
+    font-weight: bold;
 }

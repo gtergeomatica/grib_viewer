@@ -172,10 +172,10 @@ else{
 // qua sarà da metter una scelta in funzione di quello che vuole vedere l'utente
 // forse nella pagina in basso
 //require('wd.php');
-//require('cum_rain.php');
+require('pianopc_wms.php');
 require('time_wms.php');
 ?>
-  <div id="bar"><span>Dati GRIB</span>
+  <div id="bar"><span>Previsioni ad Alta Risoluzione</span>
   <?php
     //if(isset($_POST['layer']))
     //{
@@ -303,21 +303,149 @@ while($r0 = pg_fetch_assoc($result0)) {
 		
 		
 		// gruppo con le baselayers
-		var baseLayers = {
+		/* var baseLayers = {
         		'OpenStreetMap': basemap2, 
         		'Realvista e-geos': realvista,
         		'CartoDB': cartodb
-        	};
+        	}; */
 		
 		// gruppo con gli strumenti e altre eventuali mappe
-        var overlayLayers = {'<img src="icon/pluvio.png" width="20" height="24" alt=""> Pluviometri': pluvio_siac,
+        /* var overlayLayers = {'<img src="icon/pluvio.png" width="20" height="24" alt=""> Pluviometri': pluvio_siac,
 		'Previsioni LAMMA <br> (Cumulata precipitazione oraria ARW 3km)': td_arw_3km_1h_prec,
         'Previsioni LAMMA <br> (Umidità relativa al suolo)': td_arw_3km_1h_hu
         //,'Vento1': vento1,'vento2': vento2//'<img src="icon/segn_lavorazione.png" width="20" height="24" alt="">  Segnalazioni in lavorazione': markers1,
         //'<img src="icon/segn_chiusa.png" width="20" height="24" alt="">  Segnalazioni chiuse': layer_v_segnalazioni_2,
         //'<img src="icon/sopralluogo.png" width="20" height="24" alt="">  Altri presidi': presidi,
         //'<img src="icon/elemento_rischio.png" width="20" height="24" alt=""> Provvedimenti cautelari':pc
+        } */
+        
+        function iconByName(name) {
+            return '<i class="icon icon-'+name+'"></i>';
         }
+
+        
+        var baseLayers = [
+            {
+                group: "Base maps",
+                //icon: iconByName('sfondi'),
+                collapsed: true,
+                layers: [
+                    {
+                        name: "CartoDB",
+                        //icon: iconByName('drinking_water'),
+                        layer: cartodb
+                    },
+                    {
+                        name: "OpenStreetMap",
+                        //icon: iconByName('drinking_water'),
+                        layer: basemap2
+                    },
+                    {
+                        name: "Realvista e-geos",
+                        //icon: iconByName('drinking_water'),
+                        layer: realvista
+                    }
+                ]
+            }
+        ];
+        
+        var overLayers = [
+            {
+                name: "Pluviometri",
+                icon: iconByName('pluvio'),
+                layer: pluvio_siac
+            },
+            {
+                group: "Previsioni LAMMA",
+                icon: iconByName('lamma'),
+                collapsed: true,
+                layers: [
+                    {
+                        name: "Previsioni LAMMA <br> (Cumulata precipitazione oraria ARW 3km)",
+                        //icon: iconByName('drinking_water'),
+                        layer: td_arw_3km_1h_prec
+                    },
+                    {
+                        name: "Previsioni LAMMA <br> (Umidità relativa al suolo)",
+                        //icon: iconByName('fuel'),
+                        layer: td_arw_3km_1h_hu
+                    }
+                ]
+            },
+            {
+                group: "Piano Protezione Civile",
+                icon: iconByName('lamma'),
+                collapsed: true,
+                layers: [
+                    {
+                        name: "Limiti amministrativi",
+                        //icon: iconByName('drinking_water'),
+                        layer: conf_com
+                    },
+                    {
+                        name: "Aree insediate",
+                        //icon: iconByName('drinking_water'),
+                        layer: insed
+                    },
+                    {
+                        name: "Carta effetti sito",
+                        //icon: iconByName('drinking_water'),
+                        layer: effetti
+                    },
+                    {
+                        name: "Aree comp emergenza",
+                        //icon: iconByName('drinking_water'),
+                        layer: aree_comp_em
+                    },
+                    {
+                        name: "Aree emergenza",
+                        //icon: iconByName('drinking_water'),
+                        layer: aree_em
+                    },
+                    {
+                        name: "Censimento interrati",
+                        //icon: iconByName('drinking_water'),
+                        layer: censimento
+                    },
+                    {
+                        name: "Acquedotti principali",
+                        //icon: iconByName('drinking_water'),
+                        layer: acquedotti
+                    },
+                    {
+                        name: "Sedi soccorso",
+                        //icon: iconByName('drinking_water'),
+                        layer: socc
+                    },
+                    {
+                        name: "Sedi rice",
+                        //icon: iconByName('drinking_water'),
+                        layer: rice
+                    },
+                    {
+                        name: "Sedi protezione civile",
+                        //icon: iconByName('drinking_water'),
+                        layer: prot
+                    },
+                    {
+                        name: "Istituti scolastici",
+                        //icon: iconByName('drinking_water'),
+                        layer: ist_scol
+                    },
+                    {
+                        name: "Infrastrutture",
+                        //icon: iconByName('fuel'),
+                        layer: infrastr
+                    },
+                    {
+                        name: "Aree elic",
+                        //icon: iconByName('drinking_water'),
+                        layer: aree_elic
+                    }
+                ]
+            }
+        ];
+        
         </script>
         <?php 
 		require('./add_timewms_legend.php');
@@ -347,11 +475,16 @@ while($r0 = pg_fetch_assoc($result0)) {
         <script>
 		
         //legenda
-        L.control.layers(baseLayers,overlayLayers,
+        /* L.control.layers(baseLayers,overlayLayers,
         {collapsed:false,
 		position: 'bottomleft'}
-        ).addTo(map);
+        ).addTo(map); */
         
+        var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {
+            collapsibleGroups: true,
+            collapsed: true
+        });
+        map.addControl(panelLayers);
         
         //add timeDimension Layer to map (must be run after layer tree initialisation)
         //commented in order to made the not checked by default

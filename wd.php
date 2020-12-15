@@ -15,19 +15,20 @@ slider = L.control.slider(function(value) {
 				//alert('Sono entrato qua. Check='+check+' e value='+value+'');
 				//alert('Sono qua');
 				map.removeLayer(vento);
-				//map.removeLayer(magnitude);
+				map.removeLayer(magnitude);
+                colorbar.remove();
 				//var vf;
 				//let vf;
 			} 
 			let vf = L.VectorField.fromASCIIGrids(u, v);
-			/*s = vf.getScalarField('magnitude');
+            var range = vf.range;
+            var scale = chroma.scale(['#1F263A', '#414AA9', '#44758C', '#399B58', 'DCD296', 'F2E899', 'A53E3C', '9C3333'], [.1, .2, .3, .4, .7, .9, 1.5, 2]).domain(range);
+			s = vf.getScalarField('magnitude');
 			magnitude = L.canvasLayer.scalarField(s, {
-			color: chroma.scale(
-				['#1F263A', '#414AA9', '#44758C', '#399B58', 'DCD296', 'F2E899', 'A53E3C', '9C3333'], [.1, .2, .3, .4, .7, .9, 1.5, 2]
-			),
-			opacity: 0.65
-		});
-			map.addLayer(magnitude);*/
+                color: scale,
+                opacity: 0.5
+                });
+			map.addLayer(magnitude);
 			vento = L.canvasLayer.vectorFieldAnim(vf, {
 			paths: 800,
 			//color: 'white', // html-color | function colorFor(value) [e.g. chromajs.scale]
@@ -41,6 +42,22 @@ slider = L.control.slider(function(value) {
 			map.addLayer(vento);
 			//map.fitBounds(vento.getBounds());
 			check=1;
+            
+            colorbar = L.control.colorBar(scale, range, {
+                    title: 'Magnitude (m/s)',
+                    units: 'm/s',
+                    steps: 100,
+                    decimals: 1,
+                    width: 350,
+                    height: 20,
+                    position: 'bottomleft',
+                    background: 'rgba(0, 0, 0, .2)',
+                    textColor: 'white',
+                    textLabels: [range[0].toFixed(0), range[1].toFixed(0)],
+                    labels: [range[0], range[1]],
+                    labelFontSize: 9
+            }).addTo(map);
+            
 			vento.on('click', function (e) {
 				if (e.value !== null) {
 					let vector = e.value;

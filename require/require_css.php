@@ -33,6 +33,7 @@
 <!-- Plugin -->
 <link rel="stylesheet" href="./vendor/leaflet-slider/dist/leaflet-slider.css"/>
 <link href="./vendor/leaflet-list-markers/src/leaflet-list-markers.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="./vendor/leaflet-panel-layers-master/src/leaflet-panel-layers.css" />
 
 <link href="./vendor/bootstrap/css/cover.css" rel="stylesheet">
 <link href="./vendor/bootstrap/css/navbar.css" rel="stylesheet">
