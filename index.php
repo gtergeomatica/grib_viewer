@@ -266,14 +266,14 @@ while($r0 = pg_fetch_assoc($result0)) {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel"><span style="color: #e6335b;">Demo Risq'eau</span> <span style="color: #394283;">WebGIS</span>
+        <h4 class="modal-title" id="exampleModalLabel"><span style="color: #e6335b;">Risq'eau</span> <span style="color: #394283;">WebGIS</span>
         <img class="masthead" src="./icon/logo_risqueau.png" style="max-height: 100px; margin-bottom: 0px !important;"></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" style="text-align: justify!important;">
-        <span style="color:#394283; text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0);"><strong>The WebGIS has been created by <a class="footlink" href="https://www.gter.it/">Gter srl</a> as part of the Interreg Alcotra <a class="footlink" href="https://www.risqeau.eu/">Project Risq'eau</a> and it has been financed with funds from the INTERREG V A France-Italy cross-border cooperation program (ALCOTRA 2014-2020).<br>The WebGIS is completely based on Open Source libraries and its code is available on <a class="footlink" href="https://github.com/gtergeomatica/grib_viewer">GitHub</a> with license <a class="footlink" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>.</span>
+        <span style="color:#394283; text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .0);"><strong><br>The WebGIS has been created by <b><a class="footlink" href="https://www.gter.it/">Gter srl</a></b> as part of the <b>Interreg Alcotra <a class="footlink" href="https://www.risqeau.eu/">Project Risq'eau</a></b> and it has been financed with funds from the <b>INTERREG V A France-Italy cross-border cooperation program (ALCOTRA 2014-2020)</b>.<br><br><br>The WebGIS is completely based on <b>Open Source libraries</b> and its code is available on <b><a class="footlink" href="https://github.com/gtergeomatica/grib_viewer">GitHub</a></b> with license <a class="footlink" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>.</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary blu" data-dismiss="modal">Close</button>
