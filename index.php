@@ -47,6 +47,24 @@ $hour = intval(abs($target - $origin)/(60*60));
 	//javascript
 	require('./require/require_js.php');
 	?>  
+    
+    <script>
+        $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+          if (!$(this).next().hasClass('show')) {
+            $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+          }
+          var $subMenu = $(this).next(".dropdown-menu");
+          $subMenu.toggleClass('show');
+
+
+          $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+            $('.dropdown-submenu .show').removeClass("show");
+          });
+
+
+          return false;
+        });
+    </script>
   
 
   <!--main role="main" class="inner cover">
@@ -361,12 +379,12 @@ while($r0 = pg_fetch_assoc($result0)) {
                 collapsed: true,
                 layers: [
                     {
-                        name: "Previsioni LAMMA <br> (Cumulata precipitazione oraria ARW 3km)",
+                        name: "Cumulata precipitazione oraria ARW 3km",
                         //icon: iconByName('drinking_water'),
                         layer: td_arw_3km_1h_prec
                     },
                     {
-                        name: "Previsioni LAMMA <br> (Umidità relativa al suolo)",
+                        name: "Umidità relativa al suolo",
                         //icon: iconByName('fuel'),
                         layer: td_arw_3km_1h_hu
                     }
@@ -393,7 +411,7 @@ while($r0 = pg_fetch_assoc($result0)) {
                         layer: effetti
                     },
                     {
-                        name: "Aree comp emergenza",
+                        name: "Aree competenza emergenza",
                         //icon: iconByName('drinking_water'),
                         layer: aree_comp_em
                     },
@@ -413,12 +431,12 @@ while($r0 = pg_fetch_assoc($result0)) {
                         layer: acquedotti
                     },
                     {
-                        name: "Sedi soccorso",
+                        name: "Sedi enti di soccorso per emergenza",
                         //icon: iconByName('drinking_water'),
                         layer: socc
                     },
                     {
-                        name: "Sedi rice",
+                        name: "Sedi ricettività",
                         //icon: iconByName('drinking_water'),
                         layer: rice
                     },
@@ -438,7 +456,7 @@ while($r0 = pg_fetch_assoc($result0)) {
                         layer: infrastr
                     },
                     {
-                        name: "Aree elic",
+                        name: "Aree atterraggio elicotteri",
                         //icon: iconByName('drinking_water'),
                         layer: aree_elic
                     }
