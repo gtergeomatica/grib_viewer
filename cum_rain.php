@@ -11,7 +11,7 @@ slider = L.control.slider(function(value) {
 	
     d3.text('./data/ws_u_'+value+'.asc', function (u) {
 		d3.text('./data/ws_v_'+value+'.asc', function (v) {
-            d3.text('./data/cum_rain_'+value+'.asc', function (rain) {
+            d3.text('./data/cum_rain_3h_'+value+'.asc', function (rain) {
                 if (check>0){
                     map.removeLayer(vento);
                     map.removeLayer(cum_rain);
@@ -23,6 +23,8 @@ slider = L.control.slider(function(value) {
                         maxAge: 200,
                 });
                 let s = L.ScalarField.fromASCIIGrid(rain);
+                //let s = L.ScalarField.fromGeoTIFF(rain.response, bandIndex = 0);
+
                 var range = s.range;
                 var scale = chroma.scale('PuBu').domain(s.range);
                 cum_rain = L.canvasLayer.scalarField(s, {
@@ -76,13 +78,13 @@ slider = L.control.slider(function(value) {
 	});
 },{
 	//slider rain
-	max: 47,
-	min:1,
+	max: 48,
+	min:3,
 	value: <?php echo $hour;?>,
 	step:1,
 	size: '250px',
 	logo:'W.D.',
-	title: 'Precipitation Accumulation from <?php echo $start_date;?> 00:00 to <?php echo $end_date;?> 23:59',
+	title: 'Cumulata di precipitazione sulle 3h - Dal <?php echo $start_date;?> 03:00 al <?php echo $end_date;?> 23:59',
 	orientation:'horizontal',
 	collapsed: false,
 	position: 'bottomleft',

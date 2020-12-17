@@ -48,7 +48,7 @@ $hour = intval(abs($target - $origin)/(60*60));
 	require('./require/require_js.php');
 	?>  
     
-    <script>
+    <script type="text/javascript">
         $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
           if (!$(this).next().hasClass('show')) {
             $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
@@ -74,7 +74,7 @@ $hour = intval(abs($target - $origin)/(60*60));
       <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
     </p>
   </main-->
-  <script>
+  <script type="text/javascript">
         var startDate = new Date();
         startDate.setUTCHours(0, 0, 0, 0);
 		//aa
@@ -207,11 +207,11 @@ require('time_wms.php');
       <input type="radio" id="layr" name="layer" onclick="changeSlider()" value="rain">
       <label for="rain">Precipitation accumulation</label-->
       <input type="radio" id="layw" name="layer" onclick="javascript: submit()" value="wind" <?php print $wind_status; ?>>
-      <label for="wind">Wind direction</label>
+      <label for="wind">Velocità del vento</label>
       <input type="radio" id="layp" name="layer" onclick="javascript: submit()" value="rain" <?php print $rain_status; ?>>
-      <label for="rain">Precipitation accumulation</label>
+      <label for="rain">Cumulata precipitazione 3h</label>
       <input type="radio" id="layt" name="layer" onclick="javascript: submit()" value="temp" <?php print $temp_status; ?>>
-      <label for="rain">Temperature 2m above ground</label>
+      <label for="rain">Temperatura a 2m dal suolo</label>
       <!--input type="submit" value="Submit"-->
     </form></div>
   <div id="lamma"><span>Dati Consorzio LAMMA</span>&nbsp;&nbsp;&nbsp;<!--button type="button" class="btn btn-primary blu" data-toggle="modal" data-target="#exampleModal2" style="margin-left:10px;"><i class="fas fa-info-circle"></i>Legends</button--><a data-toggle="modal" href="#exampleModal2"><i class="fas fa-list-alt"></i>&nbsp;Show Legends</a>
@@ -228,6 +228,9 @@ require('time_wms.php');
         tdWmsLayer.addTo(map);
   </script-->
 <?php
+//****************************************************************
+// MODAL GRAFICI
+//****************************************************************
 $query0="SELECT name, shortcode FROM arpal.pluvio 
 UNION 
 SELECT name, replace(replace(cod_stazioni,' ','-'),'’','') as shortcode 
@@ -237,7 +240,7 @@ WHERE pluviometro ='t'";
 $result0 = pg_query($conn, $query0);
 while($r0 = pg_fetch_assoc($result0)) {
 ?>
-	<div id="grafico_p_a<?php echo $r0['shortcode']; ?>" class="modal fade" role="dialog">
+	<div id="grafico_pluvio_a<?php echo $r0['shortcode']; ?>" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 		<div class="modal-content">
 		  <div class="modal-header">
@@ -251,7 +254,7 @@ while($r0 = pg_fetch_assoc($result0)) {
 				//echo $pluviometro;
 				require('./grafico_pluvio.php'); 
 				?>
-				<div id="container_<?php echo $pluviometro;?>" style="width: 100%; height: 400px"></div>
+				<div id="container_pluvio_<?php echo $pluviometro;?>" style="width: 100%; height: 400px"></div>
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
@@ -260,8 +263,48 @@ while($r0 = pg_fetch_assoc($result0)) {
 	  </div>
 	</div>
 	
-	
-	
+  <?php
+}
+
+  $query0="SELECT name, shortcode FROM arpal.idro 
+UNION 
+SELECT name, replace(replace(cod_stazioni,' ','-'),'’','') as shortcode 
+FROM monitoraggio.stazioni_risqueau sr
+WHERE idrometro ='t'";
+
+$result0 = pg_query($conn, $query0);
+while($r0 = pg_fetch_assoc($result0)) {
+?>
+	<div id="grafico_idro_a<?php echo $r0['shortcode']; ?>" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Grafico <?php echo $r0['name']; ?></h4>
+		  </div>
+		  <div class="modal-body">
+				<?php 
+				$idrometro=$r0["shortcode"];
+				$idro_name=$r0["name"];
+				//echo $pluviometro;
+				require('./grafico_idro.php'); 
+				?>
+				<div id="container_idro_<?php echo $idrometro;?>" style="width: 100%; height: 400px"></div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+  <?php }
+
+  //****************************************************************
+  // PAGINA PRINCIPALE HTML
+  //****************************************************************
+?>
+
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -282,17 +325,21 @@ while($r0 = pg_fetch_assoc($result0)) {
     </div>
   </div>
 </div>
-<?php }       
+       
+<?php
+//********************************************************** */
+// Strumenti di misura
+//********************************************************** */
 ?>
 	  
-<script>	
+<script type="text/javascript">	
 	var pluvio_siac0 = [
 		<?php 
 		require('./pluviometri.php');
 		?>
 		];
 		
-		var icon_pluvui_siac = L.icon({
+		var  icon_pluvio_siac= L.icon({
 		  iconUrl: 'icon/pluvio.png',
 		  //iconSize: [32, 37],
 		  iconSize: [19,22],
@@ -303,7 +350,7 @@ while($r0 = pg_fetch_assoc($result0)) {
 		var pluvio_siac = L.geoJson(pluvio_siac0, {
 		    pointToLayer: function (feature, latlng) {
 		        //return L.circleMarker(latlng, stile_non_lavorazione);
-		        return L.marker(latlng, {title: '<font color="#FFA500"> S.'+feature.properties.id + '-'+feature.properties.criticita + ' - '+feature.properties.localizzazione +'</font>',icon: icon_pluvui_siac});
+		        return L.marker(latlng, {title: '<font color="#FFA500"> S.'+feature.properties.id + '-'+feature.properties.criticita + ' - '+feature.properties.localizzazione +'</font>',icon: icon_pluvio_siac});
 		    }
 		    ,
 			onEachFeature: function (feature, layer) {
@@ -312,11 +359,43 @@ while($r0 = pg_fetch_assoc($result0)) {
 				feature.properties.name+'<br>'+
 				'<b>Descrizione</b>: '+
 				feature.properties.descr+'<br><br>'+
-				'<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#grafico_p_a'+feature.properties.id+'">\<i class="fas fa-chart-line" title="Visualizza grafico pluviometro"></i>Grafico </button>' );
+				'<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#grafico_pluvio_a'+feature.properties.id+'">\<i class="fas fa-chart-line" title="Visualizza grafico pluviometro"></i>Grafico </button>' );
 			}
 		});
 		map.addLayer(pluvio_siac);
+
+
+
+		var idro_siac0 = [
+		<?php 
+		require('./idrometri.php');
+		?>
+		];
 		
+		var  icon_idro_siac= L.icon({
+		  iconUrl: 'icon/idro.png',
+		  //iconSize: [32, 37],
+		  iconSize: [19,22],
+		  iconAnchor: [16, 37],
+		  popupAnchor: [0, -28]
+		});
+		
+		var idro_siac = L.geoJson(idro_siac0, {
+		    pointToLayer: function (feature, latlng) {
+		        //return L.circleMarker(latlng, stile_non_lavorazione);
+		        return L.marker(latlng, {title: '<font color="#FFA500"> S.'+feature.properties.id + '-'+feature.properties.criticita + ' - '+feature.properties.localizzazione +'</font>',icon: icon_idro_siac});
+		    }
+		    ,
+			onEachFeature: function (feature, layer) {
+				layer.bindPopup('<div align="right" style="color:grey"><i class="fas fa-pause-circle"></i> Idrometri </div>'+
+				'<b>Nome</b>: '+
+				feature.properties.name+'<br>'+
+				'<b>Descrizione</b>: '+
+				feature.properties.descr+'<br><br>'+
+				'<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#grafico_idro_a'+feature.properties.id+'">\<i class="fas fa-chart-line" title="Visualizza grafico pluviometro"></i>Grafico </button>' );
+			}
+		});
+		map.addLayer(idro_siac);
 		
 		
 		
@@ -368,16 +447,25 @@ while($r0 = pg_fetch_assoc($result0)) {
         ];
         
         var overLayers = [
-            {
-                name: "Pluviometri",
-                icon: iconByName('pluvio'),
-                layer: pluvio_siac
-            },
-            {
-                group: "Previsioni LAMMA",
-                icon: iconByName('lamma'),
-                collapsed: true,
-                layers: [
+          {
+                group: "Strumenti misura",
+                icon: iconByName('strumenti'),
+                collapsed: false,
+                layers: [{
+                        name: "Pluviometri",
+                        icon: iconByName('pluvio'),
+                        layer: pluvio_siac
+                        },{
+                        name: "Idrometri",
+                        icon: iconByName('idro'),
+                        layer: idro_siac
+                        }
+              ]},
+          {
+              group: "Previsioni LAMMA",
+              icon: iconByName('lamma'),
+              collapsed: true,
+              layers: [
                     {
                         name: "Cumulata precipitazione oraria ARW 3km",
                         //icon: iconByName('drinking_water'),
@@ -490,7 +578,7 @@ while($r0 = pg_fetch_assoc($result0)) {
   </div>
 </div>
         
-        <script>
+        <script type="text/javascript">
 		
         //legenda
         /* L.control.layers(baseLayers,overlayLayers,
@@ -531,7 +619,7 @@ while($r0 = pg_fetch_assoc($result0)) {
 	
 	
     </script>
-    <script>
+    <script type="text/javascript">
         // move the control slider outside the map
         $('#bar').append(slider.onAdd(map))
         $('.leaflet-control-slider.leaflet-control-slider-horizontal.leaflet-control-slider-expanded.leaflet-control').remove()

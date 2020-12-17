@@ -29,7 +29,7 @@ include 'conn.php';
 <script src="./vendor/leaflet-panel-layers-master/src/leaflet-panel-layers.js"></script>
 
 
-<!-- GRAFICI highcart -->
+<!-- GRAFICI highcarts -->
 <script src="./vendor/highcharts/code/highcharts.js"></script>
 <script src="./vendor/highcharts/code/modules/stock.js"></script>
 <script src="./vendor/highcharts/code/modules/data.js"></script>

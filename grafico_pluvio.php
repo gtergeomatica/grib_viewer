@@ -50,17 +50,18 @@ global: {
 Highcharts.getJSON('./data/<?php echo $id;?>_PluvioNative.json', function (data) {
 
     // create the chart
- Highcharts.chart('container_<?php echo $id;?>',
+ //Highcharts.chart('container_pluvio_<?php echo $id;?>',
+   Highcharts.stockChart('container_pluvio_<?php echo $id;?>',
    {
-      chart: {
+      /*chart: {
          type: 'column',
          zoomType: 'x',
          panning: true,
          plotBorderWidth: 1,
          panKey: 'shift'
-      },
+      },*/
       title: {
-           text: "Dati ultime 12 ore <?php echo $pluvio_name;?>"
+           text: "Dati precipitazione <?php echo $pluvio_name;?>"
       },
       xAxis: {
            type: 'datetime',
@@ -73,7 +74,7 @@ Highcharts.getJSON('./data/<?php echo $id;?>_PluvioNative.json', function (data)
        },
       yAxis: [{
          title: {
-            text: 'Précipitations',
+            text: 'Cumulata di pioggia su 5m [mm]',
             style: {
                color: '#2196F3'
             }
@@ -102,18 +103,7 @@ Highcharts.getJSON('./data/<?php echo $id;?>_PluvioNative.json', function (data)
 });
    </script>
 
-
-
-
 	
-
-
-
-
-
-
-		
-			
 <?php
 //}
 ?>

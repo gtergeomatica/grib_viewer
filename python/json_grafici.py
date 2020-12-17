@@ -84,7 +84,9 @@ def main():
                 i+=1
             #print(json)
             json = '{}]'.format(json)
-            f = open("{}_PluvioNative.json".format(row[0].replace(' ','-').translate(str.maketrans({"’":None}))), "w")
+            nome="{}/{}_PluvioNative.json".format(path,row[0].replace(' ','-').translate(str.maketrans({"’":None})))
+            logging.debug(nome)
+            f = open(nome, "w")
             f.write(json)
             f.close() 
             logging.info('Download dati per Pluviometro {} avvenuto correttamente'.format(row[0]))
@@ -93,7 +95,7 @@ def main():
         try: 
             path_file = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/{}_PluvioNative.json'.format(row[0].replace(' ','-').translate(str.maketrans({"’":None})))))
             logging.debug(path_file)
-            os.system('mv {}{}_PluvioNative.json {}'.format(path, row[0].replace(' ','-').translate(str.maketrans({"’":None})), path_file))
+            os.system('mv {}/{}_PluvioNative.json {}'.format(path, row[0].replace(' ','-').translate(str.maketrans({"’":None})), path_file))
         except Exception as ee:
             logging.error('move problem', ee)
         curr_s.close()
@@ -142,7 +144,9 @@ def main():
                 i+=1
             #print(json)
             json = '{}]'.format(json)
-            f = open("{}_PluvioNative.json".format(row[0].replace(' ','-').translate(str.maketrans({"’":None}))), "w")
+            nome="{}/{}_PluvioNative.json".format(path,row[0].replace(' ','-').translate(str.maketrans({"’":None})))
+            logging.debug(nome)
+            f = open(nome, "w")
             f.write(json)
             f.close() 
             logging.info('Download dati per Pluviometro {} avvenuto correttamente'.format(row[0]))
@@ -151,11 +155,76 @@ def main():
         try: 
             path_file = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/{}_PluvioNative.json'.format(row[0].replace(' ','-').translate(str.maketrans({"’":None})))))
             logging.debug(path_file)
-            os.system('mv {}{}_PluvioNative.json {}'.format(path, row[0].replace(' ','-').translate(str.maketrans({"’":None})), path_file))
+            os.system('mv {}/{}_PluvioNative.json {}'.format(path, row[0].replace(' ','-').translate(str.maketrans({"’":None})), path_file))
         except Exception as ee:
             logging.error('move problem', ee)
         curr_s.close()
         conn_s.close()
+    curr.close()
+    conn.close()
+    
+    
+    conn = psycopg2.connect(host=ip, dbname=db, user=user, password=pwd, port=port)
+    curr = conn.cursor()
+    conn.autocommit = True
+    
+    query='''SELECT s.cod_stazioni::text 
+    FROM monitoraggio.stazioni_risqueau s
+    WHERE idrometro='t' and id_ditta=1 '''
+    curr.execute(query)
+    #Idrometri
+    lista_idrometri = curr.fetchall()
+    # print("Print each row and it's columns values")
+    for row in lista_idrometri:
+        logging.info('Leggo pluviometro {}'.format(row[0]))
+        conn_s = psycopg2.connect(host=ip_s, dbname=db_s, user=user_s, password=pwd_s, port=port_s)
+        curr_s = conn_s.cursor()
+        conn_s.autocommit = True
+        try:
+            # precipitazione calcolo della cumulata ogni 5' e uso 1000*epoca perchè così vuole highchart
+            # os.system('/usr/bin/python3 {}/xml2json.py Pluvio {}'.format(path_omirl, row[0]))
+            query_s = '''SELECT date_trunc('hour', (data+ora) AT TIME ZONE 'UTC' AT TIME ZONE 'CET') AS hour_stump
+            ,(extract(minute FROM (data+ora) AT TIME ZONE 'UTC' AT TIME ZONE 'CET')::int / 5) AS min5_slot
+            ,1000*extract(epoch from (date_trunc('hour', (data+ora) AT TIME ZONE 'UTC' AT TIME ZONE 'CET')+ interval '5 minutes'*(extract(minute FROM (data+ora))::int / 5))) as ora
+            ,AVG(greatest(0.0,"ValoreCalcolato"/1000))
+            FROM "LETTURE_SIAC" l 
+            WHERE stazione ilike '{}' 
+            AND (l.data + l.ora) >  (now() - interval '14 days') 
+            AND (l.data + l.ora) < now()
+            GROUP  BY 1, 2, 3
+            order by 1,2'''.format(row[0])
+            curr_s.execute(query_s)
+            lista_dati = curr_s.fetchall()
+            i=0
+            for row1 in lista_dati:
+                if i==0:
+                    json='[[{},{}]'.format(row1[2], max(0,row1[3]))
+                else:
+                    json='{},[{},{}]'.format(json,row1[2], max(0,row1[3]))
+                i+=1
+            #print(json)
+            json = '{}]'.format(json)
+            nome="{}/{}_Idro.json".format(path,row[0].replace(' ','-').translate(str.maketrans({"’":None})))
+            logging.debug(nome)
+            f = open(nome, "w")
+            f.write(json)
+            f.close() 
+            logging.info('Download dati per Idrometro {} avvenuto correttamente'.format(row[0]))
+        except Exception as e:
+            logging.error(e) 
+        try: 
+            path_file = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/{}_Idro.json'.format(row[0].replace(' ','-').translate(str.maketrans({"’":None})))))
+            logging.debug(path_file)
+            move_c='mv {}/{}_Idro.json {}'.format(path, row[0].replace(' ','-').translate(str.maketrans({"’":None})), path_file)
+            logging.debug(move_c)
+            os.system(move_c)
+        except Exception as ee:
+            logging.error('move problem', ee)
+        curr_s.close()
+        conn_s.close()
+   
+    curr.close()
+    conn.close()
 
    
          

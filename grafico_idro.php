@@ -1,5 +1,10 @@
 <?php
-$id=$_GET['id'];
+//$id=$_GET['id'];
+$id=$idrometro;
+
+$liv_max=5;
+$arancio=0;
+$rosso=0;
 //require(explode('emergenze-pcge',getcwd())[0].'emergenze-pcge/conn.php');
 
 //echo strtotime("now");
@@ -41,9 +46,9 @@ while($r = pg_fetch_assoc($result)) {
 		useUTC: false
 	}
 });
-	Highcharts.getJSON('../data/<?php echo $id;?>_Idro.json', function (data) {
+	Highcharts.getJSON('./data/<?php echo $id;?>_Idro.json', function (data) {
 	// Create the chart
-	Highcharts.stockChart('grafico_<?php echo $r["shortcode"];?>', {
+	Highcharts.stockChart('container_idro_<?php echo $id;?>', {
 
 
 		rangeSelector: {
@@ -81,13 +86,16 @@ while($r = pg_fetch_assoc($result)) {
 		},*/
 
 		title: {
-			text: '<?php echo $r["name"];?>'
+			text: '<?php echo $idro_name;?>'
 		},
 		yAxis: {
 			title: {
 				text: 'Livello idrometrico[m]'
 			},
 			max:<?php echo $liv_max;?>,
+			<?php 
+			if ($arancio>0){
+			?>
 			plotLines: [{
 				value: <?php echo $arancio;?>,
 				color: '#FFC020',
@@ -106,9 +114,12 @@ while($r = pg_fetch_assoc($result)) {
 				},
 				value: <?php echo $rosso;?>
 			}]
+			<?php
+			}
+			?>
 		},
 		series: [{
-			name: '<?php echo $r["name"];?>',
+			name: '<?php echo $pluvio_name;?>',
 			data: data,
 			tooltip: {
 				valueDecimals: 2
@@ -118,13 +129,6 @@ while($r = pg_fetch_assoc($result)) {
 	});
 	</script>
 
-
-
-
-
-	<!-- 3. Add the container -->
-	<div id="grafico_<?php echo $r["shortcode"];?>" style="width: 100%; height: 400px; margin: 0 auto"></div>
-	<hr>		
-			
 <?php
-}
+//}
+?>

@@ -120,8 +120,11 @@ span.modallegend{
 .modal-content{
     height:100%;
 }
+
 .modal-dialog{
-      height: 70%;
+      height: 75%;
+      width: 60%;
+      max-width: 100%;
       overflow-y: initial !important;
 }
 .modal-body{
@@ -135,10 +138,13 @@ span.modallegend{
 	background-color: #ccc;
 }
 .icon-pluvio {
-	background: url('../../../icon/pluvio_bar.png') center center no-repeat;
+	background: url('../icon/pluvio_bar.png') center center no-repeat;
+}
+.icon-idro{
+	background: url('../icon/idro_bar.png') center center no-repeat;
 }
 .icon-lamma {
-	background: url('../../../icon/lamma_bar.png') center center no-repeat;
+	background: url('../icon/lamma_bar.png') center center no-repeat;
 }
 *, ::after, ::before {
     box-sizing: content-box  !important;

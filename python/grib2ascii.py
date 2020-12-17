@@ -176,12 +176,30 @@ This message is automaticaly sent from Python.""".format(file_name)
             logging.debug(ret)
         except Exception as e:
             logging.error(e)   
+        
+        
         # vado avanti con il contatore
         logging.info('Hour {} converted'.format(k+1))
         k+=1
         
-
-
+    # calcolo le cumulate sulle 3h (differenza )
+    for i in range(48,4,-1):
+        calcolo_cumulata='''gdal_calc.py -A {0}/{1}_{2}.asc -B {0}/{1}_{3}.asc --calc="numpy.max(A-B, 0)" --outfile={0}/{1}_3h_{2}.tiff --overwrite'''.format(data_path,'cum_rain',i,i-3)
+        try:
+            ret = os.system(calcolo_cumulata)
+            logging.debug(calcolo_cumulata)
+            logging.debug(ret)
+        except Exception as e:
+            logging.error(e)
+        translate='/usr/bin/gdal_translate -a_srs "EPSG:4326" of AAigrid {0}/{1}_{2}.tiff {0}/{1}_{2}.asc'.format(data_path,'cum_rain_3h',i)
+        try:
+            ret = os.system(translate)
+            logging.debug(translate)
+            logging.debug(ret)
+        except Exception as e:
+            logging.error(e)
+            
+    #rimuovo il geotiff globale
     remove_geotiff= 'rm {0}{1}.tiff*'.format(path_grib,file_name)
     try:
         ret = os.system(remove_geotiff)
