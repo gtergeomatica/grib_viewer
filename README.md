@@ -33,7 +33,16 @@ It is used for instruments view:
 TO TRANSLATE:
 
 # 3. Dependencies
-Ci sono alcune librerie che sono state aggiunte come dipendenze. Si tratta di altri repository github che sono direttamente caricati dentro il repo:
+Ci sono alcune librerie che sono state aggiunte come dipendenze. Sono tutte nella cartella **vendor**
+
+
+- alcune sono state aggiunte come submodule
+- altre semplicemente scaricate
+
+
+Submodule
+-----------------------------------------------------
+ Si tratta di altri repository github che sono direttamente caricati dentro il repo:
 
 Un esempio è la libreria leaflet alla base del webGIS:
 
@@ -86,11 +95,13 @@ git checkout 1.4.0
 Da testare se funziona anche per nuove versioni di leaflet e modificare il presente README.md
 
 
-
+Dipendenze scaricate
+------------------------------------------------------------------------------------
 
 Invece i seguenti file sono scaricati: 
 
 * https://github.com/Leaflet/Leaflet.markercluster.git vendor/Leaflet.markercluster
+* Highcarts: https://www.highcharts.com/blog/download/ (attualmente versione 8.2.2)
 
 
 
