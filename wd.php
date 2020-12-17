@@ -21,8 +21,9 @@ slider = L.control.slider(function(value) {
 				//let vf;
 			} 
 			let vf = L.VectorField.fromASCIIGrids(u, v);
-            var range = vf.range;
-            var scale = chroma.scale(['#1F263A', '#414AA9', '#44758C', '#399B58', 'DCD296', 'F2E899', 'A53E3C', '9C3333'], [.1, .2, .3, .4, .7, .9, 1.5, 2]).domain(range);
+            //var range = vf.range;
+            var range = [0, 30];
+            var scale = chroma.scale(['#6271b7', '#39619f', '#4a94a9', '#4d8d7b', '#53a553', '#359f35', '#a79d51', '#9f7f3a', '#a16c5c', '#813a4e', '#af5088', '#754a93', '#6d61a3', '#44698d', '#5c9098']).domain(range);
 			s = vf.getScalarField('magnitude');
 			magnitude = L.canvasLayer.scalarField(s, {
                 color: scale,
@@ -53,7 +54,7 @@ slider = L.control.slider(function(value) {
                     position: 'bottomleft',
                     background: 'rgba(0, 0, 0, .2)',
                     textColor: 'white',
-                    textLabels: [range[0].toFixed(0), range[1].toFixed(0)],
+                    textLabels: [range[0], range[1]],
                     labels: [range[0], range[1]],
                     labelFontSize: 9
             }).addTo(map);

@@ -592,6 +592,7 @@ while($r0 = pg_fetch_assoc($result0)) {
         });
         map.addControl(panelLayers);
         
+        
         //add timeDimension Layer to map (must be run after layer tree initialisation)
         //commented in order to made the not checked by default
         //td_arw_3km_1h_prec.addTo(map);
@@ -619,6 +620,9 @@ while($r0 = pg_fetch_assoc($result0)) {
 	
 	
     </script>
+    <!--?php da decommentare per getfeatureinfo
+		require('./getFeatureInfo.php');
+	?-->
     <script type="text/javascript">
         // move the control slider outside the map
         $('#bar').append(slider.onAdd(map))

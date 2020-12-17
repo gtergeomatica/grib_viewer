@@ -23,8 +23,9 @@ slider = L.control.slider(function(value) {
                         maxAge: 200,
                     });
                     let t = L.ScalarField.fromASCIIGrid(temp);
-                    var range = t.range;
-                    var scale = chroma.scale(['#2c7bb6', '#abd9e9', '#ffffbf', '#fdae61', '#d7191c']).domain(t.range);
+                    var range = [-20, 40];
+                    //console.log(range);
+                    var scale = chroma.scale(['#8f59a9', '#6abfb5', '#5d85c6', '#809318', '#f3b704', '#e85319', '#470e00']).domain(range);
                     temperature = L.canvasLayer.scalarField(t, {
                         color: scale,
                         opacity: 0.5
@@ -44,12 +45,12 @@ slider = L.control.slider(function(value) {
                         position: 'bottomleft',
                         background: 'rgba(0, 0, 0, .2)',
                         textColor: 'white',
-                        textLabels: [range[0].toFixed(0), range[1].toFixed(0)],
+                        textLabels: [range[0], range[1]],
                         labels: [range[0], range[1]],
                         labelFontSize: 9
                     }).addTo(map);
                     
-                    vento.on('click', function (e) {
+                    /* vento.on('click', function (e) {
                         if (e.value !== null) {
                             let vector = e.value;
                             let vv = vector.magnitude().toFixed(2);
@@ -60,8 +61,8 @@ slider = L.control.slider(function(value) {
                                 .setContent(html)
                                 .openOn(map);
                         }
-                    });
-                    /* temperature.on('click', function (e) {
+                    }); */
+                    temperature.on('click', function (e) {
                         if (e.value !== null) {
                             let tv = e.value.toFixed(2);
                             let html = (`<span class="popupText">${tv}&degC</span>`);
@@ -70,7 +71,7 @@ slider = L.control.slider(function(value) {
                                 .setContent(html)
                                 .openOn(map);
                         }
-                    }); */
+                    });
             });
         });
     });

@@ -25,8 +25,9 @@ slider = L.control.slider(function(value) {
                 let s = L.ScalarField.fromASCIIGrid(rain);
                 //let s = L.ScalarField.fromGeoTIFF(rain.response, bandIndex = 0);
 
-                var range = s.range;
-                var scale = chroma.scale('PuBu').domain(s.range);
+                //var range = s.range;
+                var range = [0, 1000];
+                var scale = chroma.scale(['#595959', '#5a5865', '#615884', '#34758e', '#0b8c81', '#5c9964', '#9f9d54', '#d39a78', '#fa9dbe', '#dcdcdc']).domain(range);
                 cum_rain = L.canvasLayer.scalarField(s, {
                     color: scale,
                     opacity: 0.5
@@ -40,18 +41,18 @@ slider = L.control.slider(function(value) {
                     title: 'Precipitation accumulation (mm)',
                     units: 'mm',
                     steps: 100,
-                    decimals: 1,
+                    decimals: 0,
                     width: 350,
                     height: 20,
                     position: 'bottomleft',
                     background: 'rgba(0, 0, 0, .2)',
                     textColor: 'white',
-                    textLabels: [range[0].toFixed(0), range[1].toFixed(0)],
+                    textLabels: [range[0], range[1]],
                     labels: [range[0], range[1]],
                     labelFontSize: 9
                 }).addTo(map);
                 
-                vento.on('click', function (e) {
+                /* vento.on('click', function (e) {
                         if (e.value !== null) {
                             let vector = e.value;
                             let vv = vector.magnitude().toFixed(2);
@@ -62,17 +63,17 @@ slider = L.control.slider(function(value) {
                                 .setContent(html)
                                 .openOn(map);
                         }
-                });
-                /* cum_rain.on('click', function (e) {
+                }); */
+                cum_rain.on('click', function (e) {
                     if (e.value !== null) {
-                        let rv = e.value.toFixed(3);
+                        let rv = e.value.toFixed(2);
                         let html = (`<span class="popupText">${rv} mm</span>`);
                         let popup = L.popup()
                             .setLatLng(e.latlng)
                             .setContent(html)
                             .openOn(map);
                     }
-                }); */
+                });
             });
         });
 	});

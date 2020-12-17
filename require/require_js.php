@@ -25,7 +25,7 @@ include 'conn.php';
 <script src="./vendor/leaflet-slider/dist/leaflet-slider.js"></script>
 <script src="./vendor/Leaflet.markercluster-1.4.1/dist/leaflet.markercluster.js"></script>
 <script src="./vendor/leaflet-list-markers/src/leaflet-list-markers.js"></script>
-<!--script src="./vendor/Leaflet-WMS-master/dist/Leaflet-WMS.js"></script-->
+<script src="./vendor/Leaflet-WMS-master/dist/Leaflet-WMS.js"></script>
 <script src="./vendor/leaflet-panel-layers-master/src/leaflet-panel-layers.js"></script>
 
 
