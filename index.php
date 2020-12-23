@@ -620,9 +620,9 @@ while($r0 = pg_fetch_assoc($result0)) {
 	
 	
     </script>
-    <!--?php da decommentare per getfeatureinfo
+    <?php
 		require('./getFeatureInfo.php');
-	?-->
+	?>
     <script type="text/javascript">
         // move the control slider outside the map
         $('#bar').append(slider.onAdd(map))
