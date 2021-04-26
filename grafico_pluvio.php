@@ -60,6 +60,37 @@ Highcharts.getJSON('./data/<?php echo $id;?>_PluvioNative.json', function (data)
          plotBorderWidth: 1,
          panKey: 'shift'
       },*/
+      rangeSelector: {
+			inputEnabled: true,
+			selected: 1,
+			buttons: [{
+				type: 'day',
+				count: 1,
+				text: '1g'
+			}/*, {
+				type: 'day',
+				count: 3,
+				text: '3gg'
+			}, {
+				type: 'week',
+				count: 1,
+				text: '7gg'
+			}, {
+				type: 'day',
+				count: 10,
+				text: '10gg'
+			}, {
+				type: 'day',
+				count: 14,
+				text: '14gg'
+			}/*, {
+				type: 'all',
+				text: 'Tutti'
+			}*/],
+			inputDateFormat:'%d/%m/%Y',
+			inputEditDateFormat:'%d/%m/%Y'
+		},
+
       title: {
            text: "Dati precipitazione <?php echo $pluvio_name;?>"
       },

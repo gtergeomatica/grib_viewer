@@ -74,6 +74,7 @@ def main():
             GROUP  BY 1, 2, 3
             order by 1,2'''.format(row[0])
             curr_s.execute(query_s)
+            logging.debug(query_s)
             lista_dati = curr_s.fetchall()
             i=0
             for row1 in lista_dati:
