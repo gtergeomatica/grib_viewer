@@ -5,95 +5,111 @@
 
 
 <script>
-	var piano_pc_wmsUrl = "https://www.gishosting.gter.it/lizmap-web-client/lizmap/www/index.php/lizmap/service/?repository=risqueau&project=piano_pc&"
+	//var piano_pc_wmsUrl = "../lizmap-web-client/lizmap/www/index.php/lizmap/service/?repository=risqueau&project=piano_pc&"
+	//var piano_pc_wmsUrl = "https://gishosting.gter.it/cgi-bin/qgis_mapserv.fcgi?map=/home/gter/nextcloud-data/risqueau/files/repository1/piano_pc.qgs&SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities"
+	var piano_pc_wmsUrl = "../cgi-bin/qgis_mapserv.fcgi?map=/home/gter/nextcloud-data/risqueau/files/repository1/piano_pc.qgs"
+	
 	var aree_elic = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'AREE_ELIC',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var infrastr = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'Infrastrutture',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var ist_scol = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'Istituti_scolastici',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var prot = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'Sedi_prot',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var rice = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'sedi_rice',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var socc = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'sedi_socc',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var acquedotti = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'Aquedotti_principali',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var censimento = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'censimento_interrati',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var aree_em = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'AREE_EMERGENZA',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var aree_comp_em = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'AREE_COMP_EMERG',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var effetti = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'Carta_effetti_sito',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var insed = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'Aree_insediate',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
     var conf_com = L.tileLayer.wms(piano_pc_wmsUrl, {
 		layers: 'limiti_amministrativi_comune',
 		format: 'image/png',
-		transparent: true/*,
+		transparent: true,
+		version: "1.3.0"/*,
         opacity: 0.3,
 		attribution: 'Consorzio Lamma'*/
 	});
